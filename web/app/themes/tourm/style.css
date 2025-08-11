@@ -1,0 +1,29 @@
+/*
+Theme Name: Tourm
+Theme URI: https://wordpress.themeholy.com/tourm
+Author: Themeholy
+Author URI: https://themeforest.net/user/themeholy 
+Description: Tourm - Travel & Tour Booking Agency Wordpress Theme 
+Version: 2.1.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: tourm
+Tags: one-column, flexible-header, accessibility-ready, custom-colors, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, rtl-language-support, sticky-post, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others. 
+
+*/
+
+/* Header sub-menu icon */
+.hide-icon.main-menu ul.sub-menu li a:before {
+    display: none;
+}
+.hide-icon.main-menu ul.sub-menu li a:hover {
+    padding-left: 0;
+}
+
+/*  */
+.filter-item.hidden {
+    display: none;
+}
