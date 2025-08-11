@@ -428,3 +428,96 @@ function add_custom_capabilities() {
 }
 add_action('init', 'add_custom_capabilities');
 
+
+// منع الوصول إلى wp-admin للمستخدمين العاديين
+function restrict_admin_area() {
+    if (
+        is_admin() && 
+        !current_user_can('manage_options') && 
+        !(defined('DOING_AJAX') && DOING_AJAX)
+    ) {
+        wp_redirect(home_url('/dashboard')); // 🔁 عدل الرابط إن أردت
+        exit;
+    }
+}
+add_action('admin_init', 'restrict_admin_area');
+
+
+// إعادة التوجيه بعد تسجيل الدخول
+function custom_login_redirect($redirect_to, $request, $user) {
+    // المستخدم غير موجود أو لم يتم التحقق منه بعد
+    if (!isset($user->roles)) {
+        return $redirect_to;
+    }
+
+    // المسؤولين → إلى لوحة التحكم
+    if (in_array('administrator', $user->roles)) {
+        return admin_url();
+    }
+
+    // الزبائن → إلى الصفحة الرئيسية أو لوحة التحكم المخصصة
+    return home_url('/dashboard'); // ✅ عدل المسار حسب صفحتك
+}
+add_filter('login_redirect', 'custom_login_redirect', 10, 3);
+
+
+// إخفاء شريط الإدارة للمستخدمين غير المسؤولين
+function hide_admin_bar_for_users() {
+    if (!current_user_can('manage_options')) {
+        show_admin_bar(false);
+    }
+}
+add_action('after_setup_theme', 'hide_admin_bar_for_users');
+
+
+
+function country_add_meta_boxes() {
+    add_meta_box(
+        'shipping_prices_meta_box',     // ID
+        'أسعار الشحن',                 // Title
+        'country_shipping_prices_html', // Callback
+        'country',                     // Screen (post type)
+        'normal',                      // Context
+        'high'                        // Priority
+    );
+}
+add_action('add_meta_boxes', 'country_add_meta_boxes');
+
+function country_shipping_prices_html($post) {
+    // استخدام nonce للحماية
+    wp_nonce_field('save_shipping_prices', 'shipping_prices_nonce');
+
+    $price_land = get_post_meta($post->ID, 'price_land', true);
+    $price_sea = get_post_meta($post->ID, 'price_sea', true);
+
+    ?>
+    <p>
+        <label for="price_land">سعر الشحن البري لكل كجم:</label><br>
+        <input type="number" step="0.01" min="0" name="price_land" id="price_land" value="<?php echo esc_attr($price_land); ?>">
+    </p>
+    <p>
+        <label for="price_sea">سعر الشحن البحري لكل كجم:</label><br>
+        <input type="number" step="0.01" min="0" name="price_sea" id="price_sea" value="<?php echo esc_attr($price_sea); ?>">
+    </p>
+    <?php
+}
+
+function save_country_shipping_prices($post_id) {
+    // تحقق من nonce للحماية
+    if (!isset($_POST['shipping_prices_nonce']) || !wp_verify_nonce($_POST['shipping_prices_nonce'], 'save_shipping_prices')) {
+        return;
+    }
+
+    // تحقق من صلاحيات المستخدم
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['price_land'])) {
+        update_post_meta($post_id, 'price_land', floatval($_POST['price_land']));
+    }
+    if (isset($_POST['price_sea'])) {
+        update_post_meta($post_id, 'price_sea', floatval($_POST['price_sea']));
+    }
+}
+add_action('save_post_country', 'save_country_shipping_prices');
