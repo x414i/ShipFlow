@@ -1,5 +1,5 @@
 <?php
-// get_header();
+get_header();
 
 if (!is_user_logged_in()) {
     echo '<p>⚠️ يجب تسجيل الدخول لعرض تفاصيل الطلب.</p>';
