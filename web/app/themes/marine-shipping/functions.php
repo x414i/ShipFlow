@@ -1,6 +1,5 @@
 <?php
 
-// Register Shipping Request CPT
 function register_shipping_request_cpt() {
     register_post_type('shipping_request', [
         'labels' => [
@@ -16,7 +15,6 @@ function register_shipping_request_cpt() {
 add_action('init', 'register_shipping_request_cpt');
 
 
-// Register Country CPT
 function register_country_cpt() {
     register_post_type('country', [
         'labels' => [
@@ -95,7 +93,6 @@ function calculate_shipping_total_price($post_id) {
         return;
     }
 
-    // تحقق من الصلاحيات والأمان كما في المثال السابق
 
     $weight = isset($_POST['weight']) ? floatval($_POST['weight']) : 0;
     $country_id = isset($_POST['country_id']) ? intval($_POST['country_id']) : 0;
@@ -219,10 +216,9 @@ function enqueue_shipping_scripts() {
 add_action('wp_enqueue_scripts', 'enqueue_shipping_scripts');
 
 
-// إضافة أعمدة جديدة في قائمة طلبات الشحن
 function add_shipping_request_columns($columns) {
     $new_columns = [
-        'cb' => $columns['cb'], // خانة اختيار العناصر
+        'cb' => $columns['cb'], 
         'title' => 'عنوان الطلب',
         'weight' => 'الوزن (كجم)',
         'country' => 'الدولة',
@@ -235,7 +231,6 @@ function add_shipping_request_columns($columns) {
 add_filter('manage_shipping_request_posts_columns', 'add_shipping_request_columns');
 
 
-// تعبئة الأعمدة بالبيانات الخاصة بكل طلب
 function fill_shipping_request_columns($column, $post_id) {
     switch ($column) {
         case 'weight':
@@ -316,7 +311,6 @@ function render_shipping_requests_admin_page() {
         wp_die('ليس لديك صلاحية للوصول لهذه الصفحة');
     }
 
-    // جلب الطلبات مع خيارات التصفية والبحث (يمكن تطويرها لاحقًا)
     $args = [
         'post_type' => 'shipping_request',
         'posts_per_page' => 20,
@@ -325,7 +319,6 @@ function render_shipping_requests_admin_page() {
         'order' => 'DESC',
     ];
 
-    // إضافة فلترة حسب الحالة (مثال)
     if (!empty($_GET['order_status'])) {
         $args['meta_query'] = [
             [
@@ -336,7 +329,6 @@ function render_shipping_requests_admin_page() {
         ];
     }
 
-    // استعلام الطلبات
     $shipping_requests = new WP_Query($args);
 
     ?>
@@ -392,7 +384,6 @@ function render_shipping_requests_admin_page() {
         </table>
 
         <?php
-        // عرض أزرار التنقل بين الصفحات
         $total_pages = $shipping_requests->max_num_pages;
         $current_page = max(1, get_query_var('paged'));
 
@@ -429,39 +420,33 @@ function add_custom_capabilities() {
 add_action('init', 'add_custom_capabilities');
 
 
-// منع الوصول إلى wp-admin للمستخدمين العاديين
 function restrict_admin_area() {
     if (
         is_admin() && 
         !current_user_can('manage_options') && 
         !(defined('DOING_AJAX') && DOING_AJAX)
     ) {
-        wp_redirect(home_url('/dashboard')); // 🔁 عدل الرابط إن أردت
+        wp_redirect(home_url('/dashboard'));
         exit;
     }
 }
 add_action('admin_init', 'restrict_admin_area');
 
 
-// إعادة التوجيه بعد تسجيل الدخول
 function custom_login_redirect($redirect_to, $request, $user) {
-    // المستخدم غير موجود أو لم يتم التحقق منه بعد
     if (!isset($user->roles)) {
         return $redirect_to;
     }
 
-    // المسؤولين → إلى لوحة التحكم
     if (in_array('administrator', $user->roles)) {
         return admin_url();
     }
 
-    // الزبائن → إلى الصفحة الرئيسية أو لوحة التحكم المخصصة
-    return home_url('/dashboard'); // ✅ عدل المسار حسب صفحتك
+    return home_url('/dashboard');
 }
 add_filter('login_redirect', 'custom_login_redirect', 10, 3);
 
 
-// إخفاء شريط الإدارة للمستخدمين غير المسؤولين
 function hide_admin_bar_for_users() {
     if (!current_user_can('manage_options')) {
         show_admin_bar(false);
@@ -503,12 +488,10 @@ function country_shipping_prices_html($post) {
 }
 
 function save_country_shipping_prices($post_id) {
-    // تحقق من nonce للحماية
     if (!isset($_POST['shipping_prices_nonce']) || !wp_verify_nonce($_POST['shipping_prices_nonce'], 'save_shipping_prices')) {
         return;
     }
 
-    // تحقق من صلاحيات المستخدم
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
@@ -521,3 +504,5 @@ function save_country_shipping_prices($post_id) {
     }
 }
 add_action('save_post_country', 'save_country_shipping_prices');
+
+//require get_template_directory() . '/inc/single-product-hooks.php';
