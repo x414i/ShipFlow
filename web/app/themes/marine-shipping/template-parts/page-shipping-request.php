@@ -3,7 +3,7 @@
 Template Name: نموذج طلب شحن
 */
 
-// get_header();
+get_header();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shipping_request_nonce']) && wp_verify_nonce($_POST['shipping_request_nonce'], 'submit_shipping_request')) {
     
