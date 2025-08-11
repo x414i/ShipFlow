@@ -412,6 +412,13 @@ function render_shipping_requests_admin_page() {
     </div>
     <?php
 }
+function marine_shipping_register_menus() {
+    register_nav_menus([
+        'primary' => __('القائمة الرئيسية', 'marine-shipping'),
+        'footer'  => __('قائمة الفوتر', 'marine-shipping'),
+    ]);
+}
+add_action('after_setup_theme', 'marine_shipping_register_menus');
 function add_custom_capabilities() {
     $role = get_role('subscriber');
 
@@ -420,3 +427,4 @@ function add_custom_capabilities() {
     }
 }
 add_action('init', 'add_custom_capabilities');
+
