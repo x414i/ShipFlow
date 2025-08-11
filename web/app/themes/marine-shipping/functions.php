@@ -419,3 +419,12 @@ function marine_shipping_register_menus() {
     ]);
 }
 add_action('after_setup_theme', 'marine_shipping_register_menus');
+function add_custom_capabilities() {
+    $role = get_role('subscriber');
+
+    if ($role) {
+        $role->add_cap('read_shipping_requests');
+    }
+}
+add_action('init', 'add_custom_capabilities');
+
