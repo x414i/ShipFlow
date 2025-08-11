@@ -412,3 +412,11 @@ function render_shipping_requests_admin_page() {
     </div>
     <?php
 }
+function add_custom_capabilities() {
+    $role = get_role('subscriber');
+
+    if ($role) {
+        $role->add_cap('read_shipping_requests');
+    }
+}
+add_action('init', 'add_custom_capabilities');
