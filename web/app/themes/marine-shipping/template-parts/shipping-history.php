@@ -4,7 +4,7 @@ Template Name: سجل الطلبات
 */
 
 get_header();
-
+include("dashboard-wrapper.php");
 if (!is_user_logged_in()) {
     echo '<p>يجب تسجيل الدخول لعرض سجل الطلبات.</p>';
     get_footer();
