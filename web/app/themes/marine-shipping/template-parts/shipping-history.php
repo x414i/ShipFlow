@@ -1,0 +1,86 @@
+<?php
+/*
+Template Name: سجل الطلبات
+*/
+
+// get_header();
+
+if (!is_user_logged_in()) {
+    echo '<p>يجب تسجيل الدخول لعرض سجل الطلبات.</p>';
+    get_footer();
+    exit;
+}
+
+$current_user_id = get_current_user_id();
+
+$shipping_requests = get_posts([
+    'post_type' => 'shipping_request',
+    'posts_per_page' => -1,
+    'author' => $current_user_id,
+    'orderby' => 'date',
+    'order' => 'DESC',
+]);
+
+?>
+
+<div class="shipping-history">
+    <h2>📦 سجل طلبات الشحن</h2>
+
+    <?php if (!empty($shipping_requests)) : ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم الطلب</th>
+                    <th>الوزن (كجم)</th>
+                    <th>الدولة</th>
+                    <th>نوع الشحن</th>
+                    <th>السعر الإجمالي</th>
+                    <th>حالة الطلب</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($shipping_requests as $request) : 
+                    $weight = get_post_meta($request->ID, '_weight', true);
+                    $country_id = get_post_meta($request->ID, '_country_id', true);
+                    $country_title = $country_id ? get_the_title($country_id) : '-';
+                    $shipping_type = $country_id ? get_post_meta($country_id, '_shipping_type', true) : '-';
+                    $total_price = get_post_meta($request->ID, '_total_price', true);
+                    $order_status = get_post_meta($request->ID, '_order_status', true);
+                    $date = get_the_date('', $request->ID);
+                ?>
+                <tr>
+                    <td>#<?php echo $request->ID; ?></td>
+                    <td><?php echo esc_html($weight); ?></td>
+                    <td><?php echo esc_html($country_title); ?></td>
+                    <td><?php echo esc_html($shipping_type); ?></td>
+                    <td><?php echo number_format(floatval($total_price), 2); ?> ريال</td>
+                    <td><?php echo esc_html($order_status); ?></td>
+                    <td><?php echo esc_html($date); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>لا توجد طلبات حتى الآن.</p>
+    <?php endif; ?>
+</div>
+
+<style>
+.shipping-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.shipping-history th, .shipping-history td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+.shipping-history th {
+    background-color: #f5f5f5;
+}
+</style>
+
+<?php 
+// get_footer(); ?>
