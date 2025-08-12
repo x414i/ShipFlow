@@ -1,16 +1,16 @@
 <?php
 
-function add_country_meta_boxes() {
-    add_meta_box(
-        'country_shipping_meta',
-        'بيانات الشحن',
-        'render_country_shipping_meta_box',
-        'country',
-        'normal',
-        'high'
-    );
-}
-add_action('add_meta_boxes', 'add_country_meta_boxes');
+// function add_country_meta_boxes() {
+//     add_meta_box(
+//         'country_shipping_meta',
+//         'بيانات الشحن',
+//         'render_country_shipping_meta_box',
+//         'country',
+//         'normal',
+//         'high'
+//     );
+// }
+// add_action('add_meta_boxes', 'add_country_meta_boxes');
 
 function render_country_shipping_meta_box($post) {
     // nonce للأمان
@@ -75,6 +75,8 @@ function country_shipping_prices_html($post) {
 
     $price_land = get_post_meta($post->ID, 'price_land', true);
     $price_sea = get_post_meta($post->ID, 'price_sea', true);
+    $price_air = get_post_meta($post->ID, 'price_air', true);
+    $price_fast = get_post_meta($post->ID, 'price_fast', true);
 
     ?>
     <p>
@@ -84,6 +86,14 @@ function country_shipping_prices_html($post) {
     <p>
         <label for="price_sea">سعر الشحن البحري لكل كجم:</label><br>
         <input type="number" step="0.01" min="0" name="price_sea" id="price_sea" value="<?php echo esc_attr($price_sea); ?>">
+    </p>
+    <p>
+        <label for="price_air">سعر الشحن الجوي لكل كجم:</label><br>
+        <input type="number" step="0.01" min="0" name="price_air" id="price_air" value="<?php echo esc_attr($price_air); ?>">
+    </p>
+    <p>
+        <label for="price_fast">سعر الشحن السريع لكل كجم:</label><br>
+        <input type="number" step="0.01" min="0" name="price_fast" id="price_fast" value="<?php echo esc_attr($price_fast); ?>">
     </p>
     <?php
 }
@@ -102,6 +112,12 @@ function save_country_shipping_prices($post_id) {
     }
     if (isset($_POST['price_sea'])) {
         update_post_meta($post_id, 'price_sea', floatval($_POST['price_sea']));
+    }
+    if (isset($_POST['price_air'])) {
+        update_post_meta($post_id, 'price_air', floatval($_POST['price_air']));
+    }
+    if (isset($_POST['price_fast'])) {
+        update_post_meta($post_id, 'price_fast', floatval($_POST['price_fast']));
     }
 }
 add_action('save_post_country', 'save_country_shipping_prices');

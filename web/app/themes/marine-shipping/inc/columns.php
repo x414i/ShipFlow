@@ -34,7 +34,7 @@ function fill_shipping_request_columns($column, $post_id) {
 
         case 'total_price':
             $price = get_post_meta($post_id, '_total_price', true);
-            echo $price ? number_format(floatval($price), 2) . ' ريال' : '-';
+            echo $price ? number_format(floatval($price), 2) . '$' : '-';
             break;
 
         case 'order_status':

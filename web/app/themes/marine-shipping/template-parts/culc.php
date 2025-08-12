@@ -17,14 +17,19 @@ foreach ($countries as $country) {
     // حاول هنا إزالة _ إذا لم تكن موجودة في الـ meta keys
     $land_price = get_post_meta($country->ID, 'price_land', true);
     $sea_price = get_post_meta($country->ID, 'price_sea', true);
+    $price_air = get_post_meta($country->ID, 'price_air', true);
+    $price_fast = get_post_meta($country->ID, 'price_fast', true);
 
     // طباعة للتأكد من القيم
-    echo "الدولة: {$country->post_title} - بري: {$land_price} - بحري: {$sea_price}<br>";
+    echo "الدولة: {$country->post_title} - بري: {$land_price} - بحري: {$sea_price}<br>" . 
+        "جوي: {$price_air} - سريع: {$price_fast}<br>";
 
     $shipping_prices[$country->ID] = [
         'name' => $country->post_title,
         'land' => floatval($land_price),
         'sea' => floatval($sea_price),
+        'air' => floatval($price_air),
+        'fast' => floatval($price_fast),
     ];
 }
 ?>
@@ -50,6 +55,9 @@ foreach ($countries as $country) {
 <select id="shipping_type">
     <option value="land">بري</option>
     <option value="sea">بحري</option>
+    <option value="air">جوي</option>
+    <option value="fast">سريع</option>
+
 </select>
 
 <br><br>
@@ -85,7 +93,7 @@ foreach ($countries as $country) {
             errorMessageElem.textContent = 'يرجى إدخال وزن صحيح أكبر من صفر.';
             return;
         }
-        if (!shippingType || (shippingType !== 'land' && shippingType !== 'sea')) {
+        if (!shippingType || !['land', 'sea', 'air', 'fast'].includes(shippingType)) {
             errorMessageElem.textContent = 'يرجى اختيار نوع الشحن.';
             return;
         }

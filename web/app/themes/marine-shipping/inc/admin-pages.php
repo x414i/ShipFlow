@@ -13,8 +13,6 @@ function register_shipping_requests_admin_page() {
 }
 add_action('admin_menu', 'register_shipping_requests_admin_page');
 
-
-
 function render_shipping_requests_admin_page() {
     if (!current_user_can('manage_options')) {
         wp_die('ليس لديك صلاحية للوصول لهذه الصفحة');
