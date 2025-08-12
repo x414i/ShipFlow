@@ -1,17 +1,17 @@
 <?php
 
-function register_shipping_requests_admin_page() {
-    add_menu_page(
-        'إدارة طلبات الشحن',
-        'طلبات الشحن',
-        'manage_options',
-        'manage-shipping-requests',
-        'render_shipping_requests_admin_page',
-        'dashicons-archive',
-        6
-    );
-}
-add_action('admin_menu', 'register_shipping_requests_admin_page');
+// function register_shipping_requests_admin_page() {
+//     // add_menu_page(
+//     //     'إدارة طلبات الشحن',
+//     //     'طلبات الشحن1',
+//     //     'manage_options',
+//     //     'manage-shipping-requests',
+//     //     'render_shipping_requests_admin_page',
+//     //     'dashicons-archive',
+//     //     60
+//     // );
+// }
+// add_action('admin_menu', 'register_shipping_requests_admin_page');
 
 function render_shipping_requests_admin_page() {
     if (!current_user_can('manage_options')) {
@@ -79,7 +79,7 @@ function render_shipping_requests_admin_page() {
                         <td><a href="<?php echo get_edit_post_link($post_id); ?>">#<?php echo $post_id; ?></a></td>
                         <td><?php echo esc_html($weight); ?></td>
                         <td><?php echo $country ? esc_html($country->post_title) : '-'; ?></td>
-                        <td><?php echo $total_price ? number_format(floatval($total_price), 2) . ' ريال' : '-'; ?></td>
+                        <td><?php echo $total_price ? number_format(floatval($total_price), 2) . ' $' : '-'; ?></td>
                         <td><?php echo esc_html($order_status); ?></td>
                         <td><?php echo get_the_date(); ?></td>
                     </tr>

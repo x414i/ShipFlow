@@ -5,6 +5,7 @@ Template Name: سجل الطلبات
 
 get_header();
 include("dashboard-wrapper.php");
+
 if (!is_user_logged_in()) {
     echo '<p>يجب تسجيل الدخول لعرض سجل الطلبات.</p>';
     get_footer();
@@ -36,6 +37,7 @@ $shipping_requests = get_posts([
                     <th>نوع الشحن</th>
                     <th>السعر الإجمالي</th>
                     <th>حالة الطلب</th>
+                    <th>الملاحظات</th>
                     <th>التاريخ</th>
                 </tr>
             </thead>
@@ -44,18 +46,35 @@ $shipping_requests = get_posts([
                     $weight = get_post_meta($request->ID, '_weight', true);
                     $country_id = get_post_meta($request->ID, '_country_id', true);
                     $country_title = $country_id ? get_the_title($country_id) : '-';
-                    $shipping_type = $country_id ? get_post_meta($country_id, '_shipping_type', true) : '-';
+
+                    // جلب نوع الشحن من ميتا الطلب وليس من الدولة
+                    $shipping_type_key = get_post_meta($request->ID, '_shipping_type', true);
+
+                    $shipping_type_label = match ($shipping_type_key) {
+                        'land' => 'بري',
+                        'sea'  => 'بحري',
+                        'air'  => 'جوي',
+                        'fast' => 'سريع',
+                        default => '-',
+                    };
+
                     $total_price = get_post_meta($request->ID, '_total_price', true);
                     $order_status = get_post_meta($request->ID, '_order_status', true);
+                    $notes = get_post_meta($request->ID, '_notes', true);
                     $date = get_the_date('', $request->ID);
                 ?>
                 <tr>
-                    <td>#<?php echo $request->ID; ?></td>
+                    <td>
+                        <a href="<?php echo home_url('/invoice/?order_id=' . $request->ID); ?>" target="_blank">
+                            #<?php echo $request->ID; ?>
+                        </a>
+                    </td>
                     <td><?php echo esc_html($weight); ?></td>
                     <td><?php echo esc_html($country_title); ?></td>
-                    <td><?php echo esc_html($shipping_type); ?></td>
-                    <td><?php echo number_format(floatval($total_price), 2); ?> ريال</td>
+                    <td><?php echo esc_html($shipping_type_label); ?></td>
+                    <td><?php echo number_format(floatval($total_price), 2); ?> $</td>
                     <td><?php echo esc_html($order_status); ?></td>
+                    <td><?php echo esc_html($notes ?: '-'); ?></td>
                     <td><?php echo esc_html($date); ?></td>
                 </tr>
                 <?php endforeach; ?>
@@ -80,7 +99,15 @@ $shipping_requests = get_posts([
 .shipping-history th {
     background-color: #f5f5f5;
 }
+.shipping-history a {
+    color: #0073aa;
+    text-decoration: none;
+}
+.shipping-history a:hover {
+    text-decoration: underline;
+}
 </style>
 
 <?php 
-// get_footer(); ?>
+// get_footer(); 
+?>

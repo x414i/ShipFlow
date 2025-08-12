@@ -26,13 +26,6 @@ if (!$order || $order->post_type !== 'shipping_request') {
     exit;
 }
 
-// تحقق من ملكية الطلب
-// if ($order->post_author !== get_current_user_id() && !current_user_can('manage_options')) {
-//     echo '<p>ليس لديك صلاحية رؤية هذه الفاتورة.</p>';
-//     get_footer();
-//     exit;
-// }
-
 // بيانات الطلب
 $weight = get_post_meta($order_id, '_weight', true);
 $country_id = get_post_meta($order_id, '_country_id', true);
@@ -40,13 +33,22 @@ $total_price = get_post_meta($order_id, '_total_price', true);
 $order_status = get_post_meta($order_id, '_order_status', true);
 $country_name = get_the_title($country_id);
 $order_date = get_the_date('F j, Y', $order_id);
-
 $shipping_type = get_post_meta($order_id, '_shipping_type', true);
+$notes = get_post_meta($order_id, '_notes', true);
 
 // بيانات المستخدم
 $user_info = get_userdata($order->post_author);
 $user_name = $user_info->display_name;
 $user_email = $user_info->user_email;
+
+// نوع الشحن بالعربية
+$type_label = match ($shipping_type) {
+    'land' => 'بري',
+    'sea'  => 'بحري',
+    'air'  => 'جوي',
+    'fast' => 'سريع',
+    default => 'غير محدد',
+};
 ?>
 
 <style>
@@ -106,6 +108,9 @@ $user_email = $user_info->user_email;
 
     <table>
         <tr>
+            <th>اسم الشحنة:</th><td><?php echo esc_html($order->post_title); ?></td>
+        </tr>
+        <tr>
             <th>اسم المستلم:</th><td><?php echo esc_html($user_name); ?></td>
         </tr>
         <tr>
@@ -121,30 +126,7 @@ $user_email = $user_info->user_email;
             <th>الدولة:</th><td><?php echo esc_html($country_name); ?></td>
         </tr>
         <tr>
-<?php
-$shipping_type = get_post_meta($order_id, '_shipping_type', true);
-$type_label = '';
-
-switch ($shipping_type) {
-    case 'land':
-        $type_label = 'بري';
-        break;
-    case 'sea':
-        $type_label = 'بحري';
-        break;
-    case 'air':
-        $type_label = 'جوي';
-        break;
-    case 'fast':
-        $type_label = 'سريع';
-        break;
-    default:
-        $type_label = 'غير محدد';
-}
-?>
-<tr>
-    <th>نوع الشحن:</th><td><?php echo esc_html($type_label); ?></td>
-</tr>
+            <th>نوع الشحن:</th><td><?php echo esc_html($type_label); ?></td>
         </tr>
         <tr>
             <th>الوزن (كجم):</th><td><?php echo esc_html($weight); ?></td>
@@ -155,6 +137,11 @@ switch ($shipping_type) {
         <tr>
             <th>حالة الطلب:</th><td><?php echo esc_html($order_status); ?></td>
         </tr>
+        <?php if (!empty($notes)): ?>
+        <tr>
+            <th>ملاحظات:</th><td><?php echo nl2br(esc_html($notes)); ?></td>
+        </tr>
+        <?php endif; ?>
     </table>
 
     <div class="footer-note">
