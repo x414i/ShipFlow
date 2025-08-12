@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shipping_request_nonc
         wp_die('يرجى إدخال بيانات صحيحة.');
     }
 
-    if (!in_array($shipping_type, ['land', 'sea'])) {
+    if (!in_array($shipping_type, ['land', 'sea', 'air', 'fast'])) {
         wp_die('يرجى اختيار نوع الشحن الصحيح.');
     }
 
@@ -25,9 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shipping_request_nonc
     $price_per_kg = 0;
     if ($shipping_type === 'land') {
         $price_per_kg = floatval(get_post_meta($country_id, 'price_land', true));
-    } else {
+    }
+    if ($shipping_type === 'sea') 
+    {
         $price_per_kg = floatval(get_post_meta($country_id, 'price_sea', true));
     }
+     if ($shipping_type === 'air') 
+    {
+        $price_per_kg = floatval(get_post_meta($country_id, 'price_air', true));
+    }
+
+     if ($shipping_type === 'fast') 
+    {
+        $price_per_kg = floatval(get_post_meta($country_id, 'price_fast', true));
+    }
+
 
     if (!$price_per_kg || $price_per_kg <= 0) {
         wp_die('لا يوجد سعر شحن لهذه الدولة ونوع الشحن المختار.');
@@ -95,6 +107,8 @@ $countries = get_posts([
         <option value="">-- اختر نوع الشحن --</option>
         <option value="land">بري</option>
         <option value="sea">بحري</option>
+        <option value="air">جوي</option>
+        <option value="fast">سريع</option>
     </select>
 
     <br><br>
