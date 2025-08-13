@@ -6,60 +6,34 @@ if (!is_user_logged_in()) {
 
 $current_user = wp_get_current_user();
 get_header();
+
 ?>
 
-<style>
-.dashboard-layout {
-    display: flex;
-    min-height: 100vh;
-    font-family: "Segoe UI", sans-serif;
-}
-.dashboard-sidebar {
-    width: 250px;
-    background-color: #f7f7f7;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-}
-.dashboard-content {
-    flex-grow: 1;
-    padding: 40px;
-}
-.dashboard-sidebar h3 {
-    margin-top: 0;
-}
-.dashboard-nav a {
-    display: block;
-    padding: 10px;
-    margin: 5px 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    text-decoration: none;
-    color: #333;
-    border-radius: 4px;
-    transition: 0.2s;
-}
-.dashboard-nav a:hover {
-    background: #eaeaea;
-}
-.logout-btn {
-    color: red;
-    font-weight: bold;
-}
-</style>
-
 <div class="dashboard-layout">
-
     <aside class="dashboard-sidebar">
-        <h3>👤 <?php echo esc_html($current_user->display_name); ?></h3>
+<div class="dashboard-logo">
+    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.png" alt="لوحة التحكم" style="max-width:80px; max-height:80px;">
+</div>
+        <h3>
+            <div class="user-avatar"><?php echo substr($current_user->display_name, 0, 1); ?></div>
+            <?php echo esc_html($current_user->display_name); ?>
+            
+        </h3>
+        
+        
         <nav class="dashboard-nav">
             <?php
             wp_nav_menu([
                 'theme_location' => 'dashboard-menu',
                 'container' => false,
+                'items_wrap' => '%3$s',
                 'fallback_cb' => false,
             ]);
             ?>
-            <a class="logout-btn" href="<?php echo wp_logout_url(home_url()); ?>">🚪 تسجيل الخروج</a>
+            
+            <a class="logout-btn" href="<?php echo wp_logout_url(home_url()); ?>">
+                <span>🚪</span> تسجيل الخروج
+            </a>
         </nav>
     </aside>
 
