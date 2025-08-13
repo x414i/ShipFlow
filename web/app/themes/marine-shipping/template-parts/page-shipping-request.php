@@ -72,63 +72,377 @@ $countries = get_posts([
 ]);
 ?>
 
-<h2 class="title-page-shipping">نموذج طلب شحن</h2>
+<style>
+    .shipping-container {
+        /* max-width: 750px; */
+        margin: 30px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+    
+    .shipping-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .shipping-header h2 {
+        margin: 0;
+        font-size: 30px;
+        color: #2c3e50;
+        font-weight: 700;
+        position: relative;
+    }
+    
+    .shipping-header i {
+        background: #3498db;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 20px;
+        font-size: 26px;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+    
+    .form-group {
+        flex: 1;
+        position: relative;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 16px;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 15px 15px 15px 50px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+        background: #f9fafb;
+    }
+    
+    .form-input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+        background: #fff;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 45px;
+        color: #7f8c8d;
+        font-size: 18px;
+    }
+    
+    .form-textarea {
+        height: 120px;
+        padding: 15px 15px 15px 50px;
+        resize: vertical;
+    }
+    
+    .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%237f8c8d' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 14px;
+        padding-right: 40px;
+    }
+    
+    .shipping-info-card {
+        background: linear-gradient(135deg, #e8f4fd, #f0f9ff);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 15px;
+        border-left: 4px solid #3498db;
+        display: flex;
+        align-items: center;
+    }
+    
+    .shipping-info-card i {
+        font-size: 24px;
+        color: #3498db;
+        margin-left: 15px;
+    }
+    
+    .shipping-info-card p {
+        margin: 0;
+        font-size: 14px;
+        color: #2c3e50;
+        line-height: 1.6;
+    }
+    
+    .price-estimate {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+        border: 1px dashed #3498db;
+    }
+    
+    .price-estimate h3 {
+        margin: 0 0 15px 0;
+        color: #2c3e50;
+        font-size: 18px;
+    }
+    
+    .price-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #3498db;
+        margin: 10px 0;
+    }
+    
+    .price-note {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin-top: 10px;
+    }
+    
+    .submit-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        margin-top: 15px;
+        width: 100%;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .submit-btn:hover {
+        background: #2980b9;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    .submit-btn:active {
+        transform: translateY(-1px);
+    }
+    
+    .submit-btn i {
+        margin-left: 10px;
+        font-size: 20px;
+    }
+    
+    .shipping-type-option {
+        position: relative;
+        padding: 12px 15px 12px 50px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid #eee;
+    }
+    
+    .shipping-type-option:hover {
+        background: #f5f9ff;
+        border-color: #3498db;
+    }
+    
+    .shipping-type-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #3498db;
+        background: #e8f4fd;
+    }
+    
+    .shipping-type-option.selected {
+        background: #e8f4fd;
+        border-color: #3498db;
+    }
+    
+    @media (max-width: 768px) {
+        .shipping-container {
+            padding: 20px;
+            margin: 20px 15px;
+        }
+        
+        .form-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .shipping-header h2 {
+            font-size: 26px;
+        }
+        
+        .shipping-header i {
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+        }
+        
+        .form-input {
+            padding: 14px 14px 14px 45px;
+        }
+        
+        .input-icon {
+            top: 42px;
+            font-size: 16px;
+        }
+        
+        .submit-btn {
+            padding: 15px;
+            font-size: 16px;
+        }
+    }
+</style>
 
-<form method="post" action="" class="shipping-request-form">
-    <?php wp_nonce_field('submit_shipping_request', 'shipping_request_nonce'); ?>
+<div class="shipping-container">
+    <div class="shipping-header">
+        <i class="fas fa-shipping-fast"></i>
+        <h2>نموذج طلب شحن</h2>
+    </div>
+    
+    <form method="post" action="" class="shipping-request-form">
+        <?php wp_nonce_field('submit_shipping_request', 'shipping_request_nonce'); ?>
+        
+        <div class="form-group">
+            <label for="custom_title">اسم الشحنة (اختياري):</label>
+            <i class="fas fa-box input-icon"></i>
+            <input type="text" name="custom_title" id="custom_title" class="form-input" placeholder="مثال: شحنة كتب – طلب رقم ...">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="weight">الوزن (كجم):</label>
+                <i class="fas fa-weight input-icon"></i>
+                <input type="number" name="weight" id="weight" class="form-input" step="0.01" min="0.1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="country_id">اختر الدولة:</label>
+                <i class="fas fa-globe input-icon"></i>
+                <select name="country_id" id="country_id" class="form-input form-select" required>
+                    <option value="">-- اختر الدولة --</option>
+                    <?php foreach ($countries as $country): ?>
+                        <option value="<?php echo $country->ID; ?>">
+                            <?php echo esc_html($country->post_title); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>نوع الشحن:</label>
+            
+            <div class="shipping-type-option" data-value="land">
+                <div class="shipping-type-icon"><i class="fas fa-truck"></i></div>
+                <div>
+                    <strong>شحن بري</strong>
+                    <div class="price-note">الأكثر اقتصادية للشحنات الكبيرة</div>
+                </div>
+            </div>
+            
+            <div class="shipping-type-option" data-value="sea">
+                <div class="shipping-type-icon"><i class="fas fa-ship"></i></div>
+                <div>
+                    <strong>شحن بحري</strong>
+                    <div class="price-note">مناسب للشحنات الضخمة والغير مستعجلة</div>
+                </div>
+            </div>
+            
+            <div class="shipping-type-option" data-value="air">
+                <div class="shipping-type-icon"><i class="fas fa-plane"></i></div>
+                <div>
+                    <strong>شحن جوي</strong>
+                    <div class="price-note">الأسرع للشحنات المتوسطة والخفيفة</div>
+                </div>
+            </div>
+            
+            <div class="shipping-type-option" data-value="fast">
+                <div class="shipping-type-icon"><i class="fas fa-bolt"></i></div>
+                <div>
+                    <strong>شحن سريع</strong>
+                    <div class="price-note">الأسرع مع تتبع فوري - التوصيل خلال 72 ساعة</div>
+                </div>
+            </div>
+            
+            <input type="hidden" name="shipping_type" id="shipping_type" value="" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="notes">ملاحظات إضافية (اختياري):</label>
+            <i class="fas fa-sticky-note input-icon"></i>
+            <textarea name="notes" id="notes" class="form-input form-textarea" placeholder="أدخل أي ملاحظات تخص الشحنة..."></textarea>
+        </div>
+        
+        <div class="price-estimate">
+            <h3>التكلفة المتوقعة</h3>
+            <div class="price-value">سيتم عرض السعر بعد اختيار الدولة ونوع الشحن</div>
+            <div class="price-note">السعر النهائي قد يختلف قليلاً حسب الوزن الفعلي بعد المعاينة</div>
+        </div>
+        
+        <div class="shipping-info-card">
+            <i class="fas fa-info-circle"></i>
+            <p>يرجى التأكد من صحة المعلومات المدخلة. بعد إرسال الطلب، سيتم التواصل معك لتأكيد التفاصيل وتحديد موعد الاستلام. يمكنك متابعة حالة الطلب من خلال حسابك.</p>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            إرسال طلب الشحن
+        </button>
+    </form>
+</div>
 
-    <label for="custom_title" class="custom-title">اسم الشحنة (اختياري):</label>
-    <input type="text" name="custom_title" id="custom_title" class="title-shipping" placeholder="مثال: شحنة كتب – طلب رقم ...">
-    <br><br>
-
-    <label for="weight" class="weigth-title">الوزن (كجم):</label>
-    <input type="number" name="weight" id="weight" class="weigth-input" step="0.01" min="0" required>
-    <br><br>
-
-    <label for="country_id" class="country-title">اختر الدولة:</label>
-    <select name="country_id" id="country_id" class="country-type" required>
-        <option value="">-- اختر الدولة --</option>
-        <?php foreach ($countries as $country): ?>
-            <option value="<?php echo $country->ID; ?>">
-                <?php echo esc_html($country->post_title); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <br><br>
-
-    <label for="shipping_type" class="shipping-type-title">نوع الشحن:</label>
-    <select name="shipping_type" id="shipping_type" class="shipping-type" required>
-        <option value="">-- اختر نوع الشحن --</option>
-        <option value="land" class="land">بري</option>
-        <option value="sea"  class="sea">بحري</option>
-        <option value="air"  class="air">جوي</option>
-        <option value="fast" class="fast">سريع</option>
-    </select>
-    <br><br>
-
-    <label for="notes" class="notes">ملاحظات إضافية (اختياري):</label><br>
-    <textarea  class="note-textarea" name="notes" id="notes" rows="4" cols="50" placeholder="أدخل أي ملاحظات تخص الشحنة..."></textarea>
-    <br><br>
-
-    <!-- <button type="submit">📦 إرسال الطلب</button> -->
-     <!-- From Uiverse.io by adamgiebl --> 
-<button>
-      <span> إرسال الطلب </span>
-
-  <svg
-    height="24"
-    width="24"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M0 0h24v24H0z" fill="none"></path>
-    <path
-      d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-      fill="currentColor"
-    ></path>
-  </svg>
-</button>
-
-</form>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // إدارة اختيار نوع الشحن
+    const shippingOptions = document.querySelectorAll('.shipping-type-option');
+    const shippingTypeInput = document.getElementById('shipping_type');
+    
+    shippingOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            shippingOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            shippingTypeInput.value = this.getAttribute('data-value');
+        });
+    });
+    
+    // يمكن إضافة المزيد من الوظائف التفاعلية هنا
+});
+</script>
 
 <?php get_footer(); ?>
