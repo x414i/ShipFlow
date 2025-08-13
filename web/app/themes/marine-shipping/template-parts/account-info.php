@@ -4,11 +4,11 @@ Template Name: معلومات الحساب
 */
 ob_start(); // ✅ يبدأ التخزين المؤقت
 
+
+get_header();
 if (isset($_GET['updated'])) {
     echo '<p style="color:green;">تم تحديث البيانات بنجاح.</p>';
 }
-
-include('dashboard-wrapper.php');
 
 $current_user = wp_get_current_user();
 $user_id = get_current_user_id();
@@ -69,6 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['account_info_nonce'])
 
 <?php
 ob_end_flush(); // ✅ ينهي التخزين المؤقت
+get_footer();
 ?>
 
-<?php include('dashboard-footer.php'); ?>
