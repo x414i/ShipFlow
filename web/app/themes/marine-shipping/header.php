@@ -8,18 +8,20 @@
 </head>
 <body <?php body_class(); ?>>
 <header>
-    <h1><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
+    <!-- <h1><a href="<?php //echo esc_url(home_url('/')); ?>"><?php // bloginfo('name'); ?></a></h1> -->
 
  <nav class="main-navigation">
-    <?php
-        wp_nav_menu([
-            'theme_location' => 'primary',
-            'container'      => false,
-            'menu_class'     => 'nav-menu',
-            'fallback_cb'    => false,
-        ]);
-    ?>
+   
 </nav>
 
 </header>
 <main>
+ <?php
+    include_once 'dashboard-wrapper.php'; // Include the dashboard wrapper for user dashboard
+        // wp_nav_menu([
+        //     'theme_location' => 'primary',
+        //     'container'      => false,
+        //     'menu_class'     => 'nav-menu',
+        //     'fallback_cb'    => false,
+        // ]);
+    ?>
