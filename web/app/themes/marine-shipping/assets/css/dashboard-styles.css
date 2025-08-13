@@ -1,0 +1,134 @@
+/* ملف dashboard-styles.css */
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --light-bg: #f8f9fa;
+  --dark-text: #212529;
+  --light-text: #f8f9fa;
+  --border-color: #dee2e6;
+  --success-color: #4cc9f0;
+  --danger-color: #f72585;
+  --transition: all 0.3s ease;
+}
+
+.dashboard-layout,
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #f5f7fa;
+}
+
+.dashboard-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #2c3e50 0%, #1a2530 100%);
+  color: var(--light-text);
+  padding: 30px 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  z-index: 100;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #f5f7fa;
+  overflow-y: auto;
+}
+
+.dashboard-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dashboard-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  transition: var(--transition);
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.dashboard-nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.dashboard-nav a::before {
+  content: "→";
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.dashboard-nav a:hover::before {
+  opacity: 1;
+  margin-right: 5px;
+}
+
+.logout-btn {
+  margin-top: 20px;
+  background: rgba(231, 76, 60, 0.2);
+  border-left: 3px solid #e74c3c;
+}
+
+.logout-btn:hover {
+  background: rgba(231, 76, 60, 0.3) !important;
+}
+
+/* تحسينات للهواتف */
+@media (max-width: 992px) {
+  .dashboard-layout,
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .dashboard-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .dashboard-nav a {
+    padding: 12px 15px;
+  }
+}
+
+/* تأثيرات تفاعلية */
+.dashboard-nav a.active {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
