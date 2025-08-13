@@ -7,46 +7,14 @@ Template Name: تتبع شحنة
 get_header();
 ?>
 
-<style>
-.track-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #fff;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-.track-container input[type="number"] {
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 20px;
-}
-.track-container button {
-    padding: 10px 20px;
-    background: #0073aa;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-.track-container button:hover {
-    background: #005e8a;
-}
-.track-result {
-    margin-top: 30px;
-    text-align: left;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-</style>
-
 <div class="track-container">
-    <h2>تتبع الشحنة</h2>
-    <p>يرجى إدخال رقم الطلب لتتبع حالته.</p>
+    <h2 class="title-track">تتبع الشحنة</h2>
+    <p class="para-track">يرجى إدخال رقم الطلب لتتبع حالته.</p>
 
-    <form method="get">
-        <input type="number" name="order_id" placeholder="رقم الطلب" required>
+    <form method="get" class="track-form">
+        <input type="number" name="order_id" placeholder="رقم الطلب" class="number-request" required>
         <br>
-        <button type="submit">🔍 تتبع</button>
+        <button type="submit" class="btn-submit">🔍 تتبع</button>
     </form>
 
     <?php
