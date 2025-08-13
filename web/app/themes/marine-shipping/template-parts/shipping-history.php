@@ -98,7 +98,7 @@ if ($order_id_search > 0) {
 ?>
 
 <div class="shipping-history">
-    <h2>📦 سجل طلبات الشحن</h2>
+    <h2 >📦 سجل طلبات الشحن</h2>
 
     <form method="get" action="" style="margin-bottom: 20px;">
         <label>🔍 بحث:</label>
@@ -186,55 +186,23 @@ if ($order_id_search > 0) {
                         <td><?php echo esc_html($country_title); ?></td>
                         <td><?php echo esc_html($shipping_type_label); ?></td>
                         <td><?php echo number_format(floatval($total_price), 2); ?> $</td>
-                        <td><?php echo esc_html($order_status); ?></td>
+                        <!-- status -->
+                        <td class=""><?php echo esc_html($order_status); ?></td>
                         <td><?php echo esc_html($notes ?: '-'); ?></td>
                         <td><?php echo esc_html($date); ?></td>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
+
+                    <?php endforeach; ?>
+
+                </tbody>
         </table>
     <?php else : ?>
         <p>لا توجد طلبات تطابق معايير البحث.</p>
     <?php endif; ?>
 </div>
 
-<style>
-.shipping-history table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.shipping-history th, .shipping-history td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-}
-.shipping-history th {
-    background-color: #f5f5f5;
-}
-.shipping-history a {
-    color: #0073aa;
-    text-decoration: none;
-}
-.shipping-history a:hover {
-    text-decoration: underline;
-}
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
-}
-form input[type="text"],
-form input[type="number"],
-form input[type="date"],
-form select {
-    padding: 6px;
-    min-width: 140px;
-}
-</style>
+
 
 <?php
-// get_footer();
+get_footer();
 ?>

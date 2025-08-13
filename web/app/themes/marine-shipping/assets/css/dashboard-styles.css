@@ -691,3 +691,145 @@ title-page-shipping {
     font-size: 0.9rem;
   }
 }
+
+/* 
+#####################################################
+#####################################################
+#############Shipping History Styles ################
+#####################################################
+#####################################################
+*/
+
+.shipping-history {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.shipping-history h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+.shipping-history form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.shipping-history label {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.shipping-history input,
+.shipping-history select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s ease;
+}
+
+.shipping-history input:focus,
+.shipping-history select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+.shipping-history input::placeholder,
+.shipping-history select::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+.shipping-history input:hover,
+.shipping-history select:hover {
+  border-color: var(--primary-color);
+}
+.shipping-history button {
+  background: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+.shipping-history button:hover {
+  background: darken(var(--primary-color), 10%);
+}
+.shipping-history table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.shipping-history th,
+.shipping-history td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+.shipping-history th {
+  background: #f8f9fa;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+.shipping-history td {
+  color: #333;
+}
+.shipping-history tr:nth-child(even) {
+  background: #f2f2f2;
+}
+.shipping-history tr:hover {
+  background: rgba(67, 97, 238, 0.1);
+}
+.shipping-history .status {
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.shipping-history .status.pending {
+  background: #f0ad4e;
+  color: white;
+}
+.shipping-history .status.shipped {
+  background: #5cb85c;
+  color: white;
+}
+.shipping-history .status.delivered {
+  background: #5bc0de;
+  color: white;
+}
+.shipping-history .status.cancelled {
+  background: #d9534f;
+  color: white;
+}
+.shipping-history .status.in-transit {
+  background: #337ab7;
+  color: white;
+}
+.shipping-history .status.returned {
+  background: #f0ad4e;
+  color: white;
+}
+.shipping-history .status.custom {
+  background: #6f42c1;
+  color: white;
+}
+
+.shipping-history .notes {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+.shipping-history .notes textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s ease;
+}
