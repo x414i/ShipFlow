@@ -62,7 +62,7 @@ function render_shipping_request_meta_box($post) {
                 '<option value="%d" %s>%s</option>',
                 $country->ID,
                 selected($country_id, $country->ID, false),
-                esc_html(__($country->post_title, 'marine-shipping'))
+                esc_html(get_translated_country_name($country->post_title))
             );
         }
         ?>
