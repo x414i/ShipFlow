@@ -38,6 +38,7 @@ function render_shipping_request_meta_box($post) {
     $weight = get_post_meta($post->ID, '_weight', true);
     $country_id = get_post_meta($post->ID, '_country_id', true);
     $order_status = get_post_meta($post->ID, '_order_status', true);
+    $notes = get_post_meta($post->ID, '_notes', true); // إضافة جلب الملاحظات
 
     // جلب الدول الموجودة
     $countries = get_posts([
@@ -78,6 +79,11 @@ function render_shipping_request_meta_box($post) {
         <option value="تم التوصيل" <?php selected($order_status, 'تم التوصيل'); ?>>تم التوصيل</option>
     </select>
 
+    <br><br>
+
+    <label for="notes">الملاحظات:</label>
+    <textarea name="notes" id="notes" rows="3" style="width:100%;"><?php echo esc_textarea($notes); ?></textarea>
+
     <?php
 }
 
@@ -97,6 +103,10 @@ function save_shipping_request_meta($post_id) {
 
     if (isset($_POST['order_status'])) {
         update_post_meta($post_id, '_order_status', sanitize_text_field($_POST['order_status']));
+    }
+
+    if (isset($_POST['notes'])) {
+        update_post_meta($post_id, '_notes', sanitize_textarea_field($_POST['notes']));
     }
 }
 add_action('save_post', 'save_shipping_request_meta');
