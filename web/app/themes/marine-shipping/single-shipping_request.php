@@ -34,9 +34,9 @@ if (have_posts()) :
             <tr><th>تاريخ الطلب:</th><td><?php echo esc_html($date); ?></td></tr>
             <tr><th>الوزن:</th><td><?php echo esc_html($weight); ?> كجم</td></tr>
             <tr><th>الدولة:</th><td><?php echo esc_html($country_title); ?></td></tr>
-            <tr><th>نوع الشحن:</th><td><?php echo esc_html($shipping_type); ?></td></tr>
-            <tr><th>سعر الكيلو:</th><td><?php echo number_format($price_per_kg, 2); ?> ريال</td></tr>
-            <tr><th>السعر الإجمالي:</th><td><strong><?php echo number_format($total_price, 2); ?> ريال</strong></td></tr>
+            <tr><th>نوع الشحن:</th><td><?php echo  esc_html($shipping_type); ?></td></tr>
+            <tr><th>سعر الكيلو:</th><td><?php echo $price_per_kg > 0 ? number_format($price_per_kg, 2) : 0 ; ?> $</td></tr>
+            <tr><th>السعر الإجمالي:</th><td><strong><?php echo $total_price > 0 ?  number_format($total_price, 2) : 0; ?> $</strong></td></tr>
             <tr><th>الحالة:</th><td><?php echo esc_html($order_status); ?></td></tr>
         </table>
 

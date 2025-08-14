@@ -28,3 +28,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const sidebar = document.querySelector('.dashboard-sidebar');
+    const content = document.querySelector('.dashboard-content');
+
+    // Toggle sidebar on mobile
+    menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        content.style.marginRight = sidebar.classList.contains('active') ? '280px' : '0';
+    });
+
+    // Highlight active menu item
+    const navLinks = document.querySelectorAll('.dashboard-nav a:not(.logout-btn)');
+    navLinks.forEach(link => {
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992 && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('active');
+            content.style.marginRight = '0';
+        }
+    });
+});
+</script>
