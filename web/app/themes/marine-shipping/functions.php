@@ -89,11 +89,21 @@ function custom_hide_classic_editor_wrap() {
     ?>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
+            // , #comment-link-box
             var editorWrap = document.querySelector('.wp-editor-wrap');
+            var editorWrapBox = document.querySelector(' #titlediv div.inside ');
+
             if (editorWrap) {
                 editorWrap.style.display = 'none';
+                editorWrapBox.style.display = 'none';
+
             }
         });
+
+        // var wrap = document.querySelector('.wrap');
+        // if (wrap) {
+        //     wrap.style.direction = 'rtl';
+        // }
     </script>
     <?php
 }
@@ -103,6 +113,57 @@ add_action('admin_enqueue_scripts', function($hook) {
     if ($hook === 'post.php' || $hook === 'post-new.php') {
         if (isset($post) && $post->post_type === 'shipping_request') {
             echo '<style>
+                /* Custom styles for shipping request details */
+                body {
+                    font-family: "Roboto", sans-serif;
+                    background-color: #f8f9fa;
+                    color: #333;
+                    
+                }
+                #shipping_request_details {
+                    background-color:#f0f4f8;padding:20px;border-radius:10px;margin-bottom:20px;
+                }
+                #shipping_request_details h2 {
+                    font-size:24px;font-weight:600;margin-bottom:20px;color:#0077b6;
+                }
+                #shipping_request_details p {
+                    font-size:16px;margin-bottom:10px;color:#333;
+                }
+                #shipping_request_details input[type="text"], 
+                #shipping_request_details input[type="number"], 
+                #shipping_request_details select, 
+                #shipping_request_details textarea {
+                    width:100%;padding:10px 15px;border-radius:8px;border:1px solid #ddd;margin-bottom:15px;font-size:16px;box-sizing:border-box;
+                }
+                #shipping_request_details input[type="text"]:focus, 
+                #shipping_request_details input[type="number"]:focus, 
+                #shipping_request_details select:focus, 
+                #shipping_request_details textarea:focus {
+                    border-color:#0077b6;box-shadow:0 0 5px rgba(0, 119, 182, 0.2);
+                }                   
+                #shipping_request_details select {
+                    background-color:#fff;color:#333;padding:10px 15px;border-radius:8px;border:1px solid #ddd;font-size:16px;
+                    appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
+                }
+                #shipping_request_details input[type="submit"] {
+                    background-color:#0077b6;color:#fff;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:16px;
+                    transition:background-color 0.3s ease;
+                }
+                #shipping_request_details input[type="submit"]:hover {  
+                    background-color:#005f8a;
+                }
+                #shipping_request_details input[type="submit"]:active {
+                    background-color:#004f74;
+                }
+                #shipping_request_details input[type="submit"]:disabled {
+                    background-color:#ccc;color:#666;cursor:not-allowed;
+                }
+                #shipping_request_details .error {
+                    color:#d9534f;font-size:14px;margin-top:10px;
+                }
+                #shipping_request_details .success {
+                    color:#5cb85c;font-size:14px;margin-top:10px;
+                }
                 #shipping_request_details label {display:block;font-weight:600;margin-bottom:6px;color:#0077b6;}
                 #shipping_request_details input, 
                 #shipping_request_details select, 
@@ -114,3 +175,9 @@ add_action('admin_enqueue_scripts', function($hook) {
         }
     }
 });
+
+
+function marine_shipping_theme_setup() {
+    load_theme_textdomain('marine-shipping', get_template_directory() . '/languages');
+}
+add_action('after_setup_theme', 'marine_shipping_theme_setup');

@@ -23,7 +23,7 @@
 function add_shipping_request_meta_boxes() {
     add_meta_box(
         'shipping_request_details',
-        'تفاصيل طلب الشحن',
+        __('Shipping Request Details', 'marine-shipping'),
         'render_shipping_request_meta_box',
         'shipping_request',
         'normal',
@@ -38,9 +38,8 @@ function render_shipping_request_meta_box($post) {
     $weight = get_post_meta($post->ID, '_weight', true);
     $country_id = get_post_meta($post->ID, '_country_id', true);
     $order_status = get_post_meta($post->ID, '_order_status', true);
-    $notes = get_post_meta($post->ID, '_notes', true); // إضافة جلب الملاحظات
+    $notes = get_post_meta($post->ID, '_notes', true);
 
-    // جلب الدول الموجودة
     $countries = get_posts([
         'post_type' => 'country',
         'posts_per_page' => -1,
@@ -49,21 +48,21 @@ function render_shipping_request_meta_box($post) {
     ]);
     ?>
 
-    <label for="weight">الوزن (كجم):</label>
+    <label for="weight"><?php echo __('Weight (kg):', 'marine-shipping'); ?></label>
     <input type="number" name="weight" id="weight" value="<?php echo esc_attr($weight); ?>" step="0.01" min="0" />
 
     <br><br>
 
-    <label for="country_id">اختر الدولة:</label>
+    <label for="country_id"><?php echo __('Select Country:', 'marine-shipping'); ?></label>
     <select name="country_id" id="country_id">
-        <option value="">-- اختر الدولة --</option>
+        <option value=""><?php echo __('-- Select Country --', 'marine-shipping'); ?></option>
         <?php
         foreach ($countries as $country) {
             printf(
                 '<option value="%d" %s>%s</option>',
                 $country->ID,
                 selected($country_id, $country->ID, false),
-                esc_html($country->post_title)
+                esc_html(__($country->post_title, 'marine-shipping'))
             );
         }
         ?>
@@ -71,17 +70,17 @@ function render_shipping_request_meta_box($post) {
 
     <br><br>
 
-    <label for="order_status">حالة الطلب:</label>
+    <label for="order_status"><?php echo __('Order Status:', 'marine-shipping'); ?></label>
     <select name="order_status" id="order_status">
-        <option value="جديد" <?php selected($order_status, 'جديد'); ?>>جديد</option>
-        <option value="قيد المعالجة" <?php selected($order_status, 'قيد المعالجة'); ?>>قيد المعالجة</option>
-        <option value="تم الشحن" <?php selected($order_status, 'تم الشحن'); ?>>تم الشحن</option>
-        <option value="تم التوصيل" <?php selected($order_status, 'تم التوصيل'); ?>>تم التوصيل</option>
+        <option value="new" <?php selected($order_status, 'new'); ?>><?php echo __('New', 'marine-shipping'); ?></option>
+        <option value="processing" <?php selected($order_status, 'processing'); ?>><?php echo __('Processing', 'marine-shipping'); ?></option>
+        <option value="shipped" <?php selected($order_status, 'shipped'); ?>><?php echo __('Shipped', 'marine-shipping'); ?></option>
+        <option value="delivered" <?php selected($order_status, 'delivered'); ?>><?php echo __('Delivered', 'marine-shipping'); ?></option>
     </select>
 
     <br><br>
 
-    <label for="notes">الملاحظات:</label>
+    <label for="notes"><?php echo __('Notes:', 'marine-shipping'); ?></label>
     <textarea name="notes" id="notes" rows="3" style="width:100%;"><?php echo esc_textarea($notes); ?></textarea>
 
     <?php
