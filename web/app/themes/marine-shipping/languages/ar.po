@@ -103,21 +103,154 @@ msgstr "لم يتم العثور على طلبات شحن."
 msgid "No shipping requests found in Trash."
 msgstr "لم يتم العثور على طلبات شحن في سلة المهملات."
 
+#: inc/meta-box-country.php:4
+msgid "Shipping Data"
+msgstr "بيانات الشحن"
+
+#: inc/meta-box-country.php:18
+msgid "Shipping Type:"
+msgstr "نوع الشحن:"
+
+#: inc/meta-box-country.php:20
+msgid "Sea"
+msgstr "بحري"
+
+#: inc/meta-box-country.php:21
+msgid "Land"
+msgstr "بري"
+
+#: inc/meta-box-country.php:25
+msgid "Price per KG (in currency):"
+msgstr "سعر الكيلو (بالعملة):"
+
+#: inc/meta-box-country.php:48
+msgid "Shipping Prices"
+msgstr "أسعار الشحن"
+
+#: inc/meta-box-country.php:61
+msgid "Land Shipping Price per KG:"
+msgstr "سعر الشحن البري لكل كجم:"
+
+#: inc/meta-box-country.php:65
+msgid "Sea Shipping Price per KG:"
+msgstr "سعر الشحن البحري لكل كجم:"
+
+#: inc/meta-box-country.php:69
+msgid "Air Shipping Price per KG:"
+msgstr "سعر الشحن الجوي لكل كجم:"
+
+#: inc/meta-box-country.php:73
+msgid "Fast Shipping Price per KG:"
+msgstr "سعر الشحن السريع لكل كجم:"
+
+#: inc/cpt-country.php:4
+msgid "Countries"
+msgstr "الدول"
+
+#: inc/cpt-country.php:5
+msgid "Country"
+msgstr "دولة"
+
+#: inc/cpt-country.php:9
+msgid "Add New Country"
+msgstr "إضافة دولة جديدة"
+
+#: inc/cpt-country.php:10
+msgid "New Country"
+msgstr "دولة جديدة"
+
+#: inc/cpt-country.php:11
+msgid "Edit Country"
+msgstr "تعديل الدولة"
+
+#: inc/cpt-country.php:12
+msgid "View Country"
+msgstr "عرض الدولة"
+
+#: inc/cpt-country.php:13
+msgid "All Countries"
+msgstr "كل الدول"
+
+#: inc/cpt-country.php:14
+msgid "Search Countries"
+msgstr "البحث في الدول"
+
+#: inc/cpt-country.php:15
+msgid "Parent Countries:"
+msgstr "الدول الأصل:"
+
+#: inc/cpt-country.php:16
+msgid "No countries found."
+msgstr "لم يتم العثور على دول."
+
+#: inc/cpt-country.php:17
+msgid "No countries found in Trash."
+msgstr "لم يتم العثور على دول في سلة المهملات."
+
+#: inc/admin-pages.php:16
+msgid "You do not have sufficient permissions to access this page."
+msgstr "ليس لديك صلاحية للوصول لهذه الصفحة."
+
+#: inc/admin-pages.php:45
+msgid "Manage Shipping Requests"
+msgstr "إدارة طلبات الشحن"
+
+#: inc/admin-pages.php:50
+msgid "All"
+msgstr "الكل"
+
+#: inc/admin-pages.php:59
+msgid "Order Number"
+msgstr "رقم الطلب"
+
+#: inc/admin-pages.php:60
+msgid "Weight (kg)"
+msgstr "الوزن (كجم)"
+
+#: inc/admin-pages.php:62
+msgid "Total Price"
+msgstr "السعر الإجمالي"
+
+#: inc/admin-pages.php:64
+msgid "Order Date"
+msgstr "تاريخ الطلب"
+
+#: inc/admin-pages.php:83
+msgid "No requests found."
+msgstr "لا توجد طلبات."
+
+#: inc/columns.php:6
+msgid "Request Title"
+msgstr "عنوان الطلب"
+
 # Country Translations
 msgid "USA"
 msgstr "الولايات المتحدة الأمريكية"
-
 msgid "United Arab Emirates"
-msgstr "الإمارات العربية المتحدة"
-
+msgstr "الامارات"
 msgid "Saudi Arabia"
 msgstr "المملكة العربية السعودية"
-
 msgid "Egypt"
 msgstr "مصر"
-
 msgid "Jordan"
 msgstr "الأردن"
-
 msgid "Turkey"
 msgstr "تركيا"
+msgid "Tunisia"
+msgstr "تونس"
+msgid "China"
+msgstr "الصين"
+msgid "Dubai"
+msgstr "دبي"
+msgid "India"
+msgstr "الهند"
+msgid "Algeria"
+msgstr "الجزائر"
+msgid "Morocco"
+msgstr "المغرب"
+msgid "Italy"
+msgstr "ايطاليا"
+msgid "France"
+msgstr "فرنسا"
+msgid "Germany"
+msgstr "المانيا"
