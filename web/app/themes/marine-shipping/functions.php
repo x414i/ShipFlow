@@ -98,3 +98,19 @@ function custom_hide_classic_editor_wrap() {
     <?php
 }
 add_action('admin_footer', 'custom_hide_classic_editor_wrap');
+add_action('admin_enqueue_scripts', function($hook) {
+    global $post;
+    if ($hook === 'post.php' || $hook === 'post-new.php') {
+        if (isset($post) && $post->post_type === 'shipping_request') {
+            echo '<style>
+                #shipping_request_details label {display:block;font-weight:600;margin-bottom:6px;color:#0077b6;}
+                #shipping_request_details input, 
+                #shipping_request_details select, 
+                #shipping_request_details textarea {
+                    width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:18px;font-size:15px;box-sizing:border-box;
+                }
+                #shipping_request_details textarea {min-height:70px;}
+            </style>';
+        }
+    }
+});
