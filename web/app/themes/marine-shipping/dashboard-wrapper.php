@@ -508,7 +508,20 @@ get_header();
         </div>
         
         <nav class="dashboard-nav">
-            <a href="#" class="active">
+
+
+          <?php
+            wp_nav_menu([
+                'theme_location' => 'dashboard-menu',
+                'container' => false,
+                'fallback_cb' => false,
+            ]);
+            ?>
+
+
+    <!-- <a href="#" class="active">
+            </a> -->
+            <!-- <a href="#" class="active">
                 <span class="fas fa-home"></span>
                 <div class="nav-text">الرئيسية</div>
             </a>
@@ -556,7 +569,7 @@ get_header();
                     <span class="fas fa-sign-out-alt"></span>
                     <div class="nav-text">تسجيل الخروج</div>
                 </a>
-            </div>
+            </div> -->
         </nav>
     </aside>
 
