@@ -84,3 +84,17 @@ require_once get_template_directory() . '/inc/admin-pages.php';
 require_once get_template_directory() . '/inc/custom-capabilities.php';
 require_once get_template_directory() . '/inc/scripts.php';
 require_once get_template_directory() . '/inc/columns.php';
+
+function custom_hide_classic_editor_wrap() {
+    ?>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var editorWrap = document.querySelector('.wp-editor-wrap');
+            if (editorWrap) {
+                editorWrap.style.display = 'none';
+            }
+        });
+    </script>
+    <?php
+}
+add_action('admin_footer', 'custom_hide_classic_editor_wrap');
