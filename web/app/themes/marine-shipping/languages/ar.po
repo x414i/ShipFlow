@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Marine Shipping\n"
+"POT-Creation-Date: 2024-08-14 12:38+0200\n"
+"PO-Revision-Date: 2024-08-14 12:38+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: inc/meta-box-shipping-request.php:28
+msgid "Shipping Request Details"
+msgstr "تفاصيل طلب الشحن"
+
+#: inc/meta-box-shipping-request.php:48
+msgid "Weight (kg):"
+msgstr "الوزن (كجم):"
+
+#: inc/meta-box-shipping-request.php:53
+msgid "Select Country:"
+msgstr "اختر الدولة:"
+
+#: inc/meta-box-shipping-request.php:55
+msgid "-- Select Country --"
+msgstr "-- اختر الدولة --"
+
+#: inc/meta-box-shipping-request.php:68
+msgid "Order Status:"
+msgstr "حالة الطلب:"
+
+#: inc/meta-box-shipping-request.php:70
+msgid "New"
+msgstr "جديد"
+
+#: inc/meta-box-shipping-request.php:71
+msgid "Processing"
+msgstr "قيد المعالجة"
+
+#: inc/meta-box-shipping-request.php:72
+msgid "Shipped"
+msgstr "تم الشحن"
+
+#: inc/meta-box-shipping-request.php:73
+msgid "Delivered"
+msgstr "تم التوصيل"
+
+#: inc/meta-box-shipping-request.php:78
+msgid "Notes:"
+msgstr "الملاحظات:"
+
+#: inc/cpt-shipping-request.php:5
+msgid "Shipping Requests"
+msgstr "طلبات الشحن"
+
+#: inc/cpt-shipping-request.php:6
+msgid "Shipping Request"
+msgstr "طلب شحن"
+
+#: inc/cpt-shipping-request.php:9
+msgid "Add New"
+msgstr "إضافة جديد"
+
+#: inc/cpt-shipping-request.php:10
+msgid "Add New Shipping Request"
+msgstr "إضافة طلب شحن جديد"
+
+#: inc/cpt-shipping-request.php:11
+msgid "New Shipping Request"
+msgstr "طلب شحن جديد"
+
+#: inc/cpt-shipping-request.php:12
+msgid "Edit Shipping Request"
+msgstr "تعديل طلب الشحن"
+
+#: inc/cpt-shipping-request.php:13
+msgid "View Shipping Request"
+msgstr "عرض طلب الشحن"
+
+#: inc/cpt-shipping-request.php:14
+msgid "All Shipping Requests"
+msgstr "كل طلبات الشحن"
+
+#: inc/cpt-shipping-request.php:15
+msgid "Search Shipping Requests"
+msgstr "البحث في طلبات الشحن"
+
+#: inc/cpt-shipping-request.php:16
+msgid "Parent Shipping Requests:"
+msgstr "طلبات الشحن الأصل:"
+
+#: inc/cpt-shipping-request.php:17
+msgid "No shipping requests found."
+msgstr "لم يتم العثور على طلبات شحن."
+
+#: inc/cpt-shipping-request.php:18
+msgid "No shipping requests found in Trash."
+msgstr "لم يتم العثور على طلبات شحن في سلة المهملات."
+
+# Country Translations
+msgid "USA"
+msgstr "الولايات المتحدة الأمريكية"
+
+msgid "United Arab Emirates"
+msgstr "الإمارات العربية المتحدة"
+
+msgid "Saudi Arabia"
+msgstr "المملكة العربية السعودية"
+
+msgid "Egypt"
+msgstr "مصر"
+
+msgid "Jordan"
+msgstr "الأردن"
+
+msgid "Turkey"
+msgstr "تركيا"
