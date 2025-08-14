@@ -409,11 +409,11 @@ $countries = get_posts([
             <textarea name="notes" id="notes" class="form-input form-textarea" placeholder="أدخل أي ملاحظات تخص الشحنة..."></textarea>
         </div>
         
-        <div class="price-estimate">
+        <!-- <div class="price-estimate">
             <h3>التكلفة المتوقعة</h3>
             <div class="price-value">سيتم عرض السعر بعد اختيار الدولة ونوع الشحن</div>
             <div class="price-note">السعر النهائي قد يختلف قليلاً حسب الوزن الفعلي بعد المعاينة</div>
-        </div>
+        </div> -->
         
         <div class="shipping-info-card">
             <i class="fas fa-info-circle"></i>
@@ -445,4 +445,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php get_footer(); ?>
+<?php //get_footer(); ?>
