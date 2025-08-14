@@ -24,7 +24,7 @@ body.no-scroll {
 .dashboard-layout,
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   background-color: #f5f7fa;
   flex-direction: column;
@@ -278,6 +278,7 @@ body.no-scroll {
   border-radius: 15px;
   padding: 25px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
 }
 
 .recent-activities h3 {
