@@ -103,21 +103,74 @@ msgstr "لم يتم العثور على طلبات شحن."
 msgid "No shipping requests found in Trash."
 msgstr "لم يتم العثور على طلبات شحن في سلة المهملات."
 
+#: inc/meta-box-country.php:4
+msgid "Shipping Data"
+msgstr "بيانات الشحن"
+
+#: inc/meta-box-country.php:18
+msgid "Shipping Type:"
+msgstr "نوع الشحن:"
+
+#: inc/meta-box-country.php:20
+msgid "Sea"
+msgstr "بحري"
+
+#: inc/meta-box-country.php:21
+msgid "Land"
+msgstr "بري"
+
+#: inc/meta-box-country.php:25
+msgid "Price per KG (in currency):"
+msgstr "سعر الكيلو (بالعملة):"
+
+#: inc/meta-box-country.php:48
+msgid "Shipping Prices"
+msgstr "أسعار الشحن"
+
+#: inc/meta-box-country.php:61
+msgid "Land Shipping Price per KG:"
+msgstr "سعر الشحن البري لكل كجم:"
+
+#: inc/meta-box-country.php:65
+msgid "Sea Shipping Price per KG:"
+msgstr "سعر الشحن البحري لكل كجم:"
+
+#: inc/meta-box-country.php:69
+msgid "Air Shipping Price per KG:"
+msgstr "سعر الشحن الجوي لكل كجم:"
+
+#: inc/meta-box-country.php:73
+msgid "Fast Shipping Price per KG:"
+msgstr "سعر الشحن السريع لكل كجم:"
+
 # Country Translations
 msgid "USA"
 msgstr "الولايات المتحدة الأمريكية"
-
 msgid "United Arab Emirates"
-msgstr "الإمارات العربية المتحدة"
-
+msgstr "الامارات"
 msgid "Saudi Arabia"
 msgstr "المملكة العربية السعودية"
-
 msgid "Egypt"
 msgstr "مصر"
-
 msgid "Jordan"
 msgstr "الأردن"
-
 msgid "Turkey"
 msgstr "تركيا"
+msgid "Tunisia"
+msgstr "تونس"
+msgid "China"
+msgstr "الصين"
+msgid "Dubai"
+msgstr "دبي"
+msgid "India"
+msgstr "الهند"
+msgid "Algeria"
+msgstr "الجزائر"
+msgid "Morocco"
+msgstr "المغرب"
+msgid "Italy"
+msgstr "ايطاليا"
+msgid "France"
+msgstr "فرنسا"
+msgid "Germany"
+msgstr "المانيا"
