@@ -665,7 +665,8 @@ title-page-shipping {
   border-radius: 5px;
 }
 .shipping-request-form {
-  max-width: 50%;
+  /* max-width: 50%; */
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   background: white;
@@ -1395,6 +1396,7 @@ title-page-shipping {
 .track-result.active {
   display: block;
   animation: fadeIn 0.5s ease;
+  width: 100%;
 }
 
 @keyframes fadeIn {

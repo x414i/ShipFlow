@@ -110,20 +110,20 @@ get_header();
                     <p><?php echo esc_html($order_date); ?></p>
                 </div>
                 
-                <div class="detail-card">
+                <!-- <div class="detail-card">
                     <h4><i class="fas fa-barcode"></i> رقم التتبع</h4>
-                    <p><?php echo !empty($tracking_code) ? esc_html($tracking_code) : 'غير متوفر'; ?></p>
-                </div>
+                    <p><?php //echo !empty($tracking_code) ? esc_html($tracking_code) : 'غير متوفر'; ?></p>
+                </div> -->
             </div>
             
-            <div class="status-container">
-                <h4><i class="fas fa-tasks"></i> حالة الشحنة: <span style="color: var(--primary);"><?php echo esc_html($order_status); ?></span></h4>
+             <!-- <div class="status-container">
+                <h4><i class="fas fa-tasks"></i> حالة الشحنة: <span style="color: var(--primary);"><?php // echo esc_html($order_status); ?></span></h4>
                 
                 <div class="status-bar">
-                    <div class="status-progress" style="width: <?php echo $status_progress; ?>%;"></div>
-                </div>
+                    <div class="status-progress" style="width: <?php  //echo $status_progress; ?>%;"></div>
+                </div> -->
                 
-                <div class="status-steps">
+                <!-- <div class="status-steps">
                     <div class="status-step completed">
                         <span>تم الطلب</span>
                     </div>
@@ -139,10 +139,10 @@ get_header();
                     <div class="status-step <?php echo $status_progress >= 100 ? 'completed' : ''; ?>">
                         <span>تم التوصيل</span>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            </div> 
             
-            <div class="tracking-history">
+            <!-- <div class="tracking-history">
                 <h4><i class="fas fa-history"></i> سجل التتبع</h4>
                 <ul class="history-list">
                     <li class="history-item">
@@ -174,7 +174,7 @@ get_header();
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
 <!--             
             <div class="tracking-actions">
                 <div class="action-btn">

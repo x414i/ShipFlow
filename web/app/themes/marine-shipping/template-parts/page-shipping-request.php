@@ -74,7 +74,7 @@ $countries = get_posts([
 
 <style>
     .shipping-container {
-        /* max-width: 750px; */
+        max-width: 800px;
         margin: 30px auto;
         padding: 30px;
         background: #fff;
