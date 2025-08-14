@@ -3,11 +3,11 @@
 function add_shipping_request_columns($columns) {
     $new_columns = [
         'cb' => $columns['cb'], 
-        'title' => 'عنوان الطلب',
-        'weight' => 'الوزن (كجم)',
-        'country' => 'الدولة',
-        'total_price' => 'السعر الإجمالي',
-        'order_status' => 'حالة الطلب',
+        'title' => __('Request Title', 'marine-shipping'),
+        'weight' => __('Weight (kg)', 'marine-shipping'),
+        'country' => __('Country', 'marine-shipping'),
+        'total_price' => __('Total Price', 'marine-shipping'),
+        'order_status' => __('Order Status', 'marine-shipping'),
         'date' => $columns['date'],
     ];
     return $new_columns;
@@ -26,7 +26,7 @@ function fill_shipping_request_columns($column, $post_id) {
             $country_id = get_post_meta($post_id, '_country_id', true);
             if ($country_id) {
                 $country = get_post($country_id);
-                echo $country ? esc_html($country->post_title) : '-';
+                echo $country ? esc_html(get_translated_country_name($country->post_title)) : '-';
             } else {
                 echo '-';
             }
@@ -38,8 +38,18 @@ function fill_shipping_request_columns($column, $post_id) {
             break;
 
         case 'order_status':
-            $status = get_post_meta($post_id, '_order_status', true);
-            echo $status ? esc_html($status) : '-';
+            $status_slug = get_post_meta($post_id, '_order_status', true);
+            if ($status_slug) {
+                $statuses = [
+                    'new' => __('New', 'marine-shipping'),
+                    'processing' => __('Processing', 'marine-shipping'),
+                    'shipped' => __('Shipped', 'marine-shipping'),
+                    'delivered' => __('Delivered', 'marine-shipping'),
+                ];
+                echo isset($statuses[$status_slug]) ? esc_html($statuses[$status_slug]) : esc_html($status_slug);
+            } else {
+                echo '-';
+            }
             break;
     }
 }
