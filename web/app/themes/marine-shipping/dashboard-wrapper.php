@@ -49,7 +49,7 @@ get_header();
     
     .dashboard-layout {
         display: flex;
-        min-height: 100vh;
+        /* min-height: 100vh; */
         direction: rtl;
         background: transparent;
     }
