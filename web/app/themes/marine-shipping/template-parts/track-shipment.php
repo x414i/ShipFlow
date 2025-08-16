@@ -116,7 +116,7 @@ get_header();
                 </div> -->
             </div>
             
-             <!-- <div class="status-container">
+            <!-- <div class="status-container">
                 <h4><i class="fas fa-tasks"></i> حالة الشحنة: <span style="color: var(--primary);"><?php // echo esc_html($order_status); ?></span></h4>
                 
                 <div class="status-bar">
