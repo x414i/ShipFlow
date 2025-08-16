@@ -411,7 +411,7 @@ body.no-scroll {
   display: flex;
   /* min-height: 100vh; */
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-  background-color: #f5f7fa;
+  /* background-color: #f5f7fa; */
   flex-direction: column;
   width: 90%;
   margin: 0 auto;
@@ -431,7 +431,7 @@ body.no-scroll {
 .dashboard-content {
   flex-grow: 1;
   padding: 30px 20px;
-  background-color: #f5f7fa;
+  /* background-color: #f5f7fa; */
   overflow-y: auto;
   transition: margin-right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
