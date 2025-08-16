@@ -46,6 +46,13 @@ function marine_shipping_enqueue_assets() {
     // Enqueue styles
     wp_enqueue_style('marine-shipping-style', get_template_directory_uri() . '/assets/css/style.css', array('font-awesome'), '1.0.0', 'all');
     wp_enqueue_style('marine-shipping-dashboard-style', get_template_directory_uri() . '/assets/css/dashboard-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-shipping-account-style', get_template_directory_uri() . '/assets/css/account-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-culc-style', get_template_directory_uri() . '/assets/css/culc-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-history-style', get_template_directory_uri() . '/assets/css/history-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-price-style', get_template_directory_uri() . '/assets/css/prices-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-request-shipping-style', get_template_directory_uri() . '/assets/css/request-shipping-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+        wp_enqueue_style('marine-track-shipment-style', get_template_directory_uri() . '/assets/css/track-shipment.css', array('marine-shipping-style'), '1.0.0', 'all');
+
     wp_enqueue_style('marine-shipping-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap', array(), null);
     wp_enqueue_style('marine-shipping-bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array(), '4.5.2', 'all');
 
