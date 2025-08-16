@@ -42,16 +42,17 @@ get_header();
         min-height: 100vh;
         color: var(--secondary);
         overflow-x: hidden;
+                direction: rtl !important;
+
     }
 
     .dashboard-container-1 {
         display: flex;
-        direction: rtl;
         width: 90%;
         margin: 1rem auto;
     }
 
-    .sidebar {
+    .sidebar{
         width: var(--sidebar-width);
         background: var(--dark);
         color: white;
@@ -350,6 +351,8 @@ get_header();
             width: 36px;
             height: 36px;
             font-size: 16px;
+            background: var(--primary);
+        padding: 5px;
         }
 
         .sidebar-nav a {
@@ -373,6 +376,11 @@ get_header();
             transform: translateX(-260px); /* نفس عرض الـ sidebar */
             transition: var(--transition);
         }
+        .sidebar.active {
+        transform: translateX(0);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        width: 40%;
+    }
     }
 
     /* Touch Optimizations */
@@ -380,9 +388,9 @@ get_header();
         .sidebar-nav a:hover,
         .logout-btn:hover,
         .toggle-sidebar:hover,
-        .mobile-toggle:hover {
+        /* .mobile-toggle:hover {
             background: none;
-        }
+        } */
 
         .sidebar-nav a:active,
         .logout-btn:active {
@@ -412,7 +420,14 @@ get_header();
         </div>
         
         <div class="user-profile">
-            <div class="user-avatar"><?php echo esc_html(substr($current_user->display_name, 0, 1)); ?></div>
+            <div class="user-avatar">
+                <!-- <img src="" alt=""> -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+    <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+    <path d="M463 448.2C440.9 409.8 399.4 384 352 384L288 384C240.6 384 199.1 409.8 177 448.2C212.2 487.4 263.2 512 320 512C376.8 512 427.8 487.3 463 448.2zM64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM320 336C359.8 336 392 303.8 392 264C392 224.2 359.8 192 320 192C280.2 192 248 224.2 248 264C248 303.8 280.2 336 320 336z"/>
+</svg>
+                <?php //echo esc_html(substr($current_user->display_name, 0, 1)); ?>
+            </div>
             <div class="user-details">
                 <h3><?php echo esc_html($current_user->display_name); ?></h3>
                 <p><?php echo esc_html($current_user->user_email); ?></p>

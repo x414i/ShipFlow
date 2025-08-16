@@ -19,6 +19,7 @@ body.no-scroll {
   overflow: hidden !important;
   position: fixed;
   width: 100%;
+  direction: rtl;
 }
 
 .dashboard-layout,
@@ -96,20 +97,20 @@ body.no-scroll {
 
 .dashboard-nav a:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 .dashboard-nav a::before {
-  content: "→";
+  content: "←";
   opacity: 0;
   transition: var(--transition);
   position: absolute;
-  left: 10px;
+  right: 10px;
 }
 
 .dashboard-nav a:hover::before {
   opacity: 1;
-  left: 15px;
+  right: 15px;
 }
 
 .logout-btn {
@@ -136,7 +137,7 @@ body.no-scroll {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  margin-right: 10px;
+  margin-left: 10px;
   font-size: 1.2rem;
 }
 
@@ -145,7 +146,7 @@ body.no-scroll {
   display: none;
   position: absolute !important;
   top: px;
-  left: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.1);
   border: none;
   color: white;
@@ -162,13 +163,13 @@ body.no-scroll {
   .dashboard-sidebar {
     position: fixed;
     height: auto;
-    transform: translateX(100%);
+    transform: translateX(-100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     padding-top: 70px;
     height: 100vh;
     top: 0;
-    right: 0;
+    left: 0;
   }
 
   .dashboard-sidebar.active {
@@ -319,7 +320,7 @@ body.no-scroll {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
+  margin-left: 15px;
   color: var(--primary-color);
   font-size: 1.2rem;
 }
@@ -776,7 +777,7 @@ title-page-shipping {
 .shipping-history th,
 .shipping-history td {
   padding: 12px;
-  text-align: left;
+  text-align: right;
   border-bottom: 1px solid #dee2e6;
 }
 .shipping-history th {
@@ -1849,7 +1850,7 @@ title-page-shipping {
   display: flex;
   align-items: center;
   gap: 15px;
-  text-align: right;
+  text-align: left;
 }
 
 .country-flag {

@@ -32,6 +32,7 @@ body {
   text-align: unset !important;
   background-color: #fff;
   width: 100%;
+  direction: rtl !important;
 }
 main {
   margin: 0rem;

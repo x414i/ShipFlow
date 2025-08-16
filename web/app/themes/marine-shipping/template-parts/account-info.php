@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['account_info_nonce'])
 
 <style>
     .account-info-container {
+        direction: rtl;
         max-width: 700px;
         margin: 30px auto;
         padding: 30px;
@@ -78,7 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['account_info_nonce'])
     .form-group {
         margin-bottom: 25px;
         position: relative;
+                direction: rtl !important;
+
     }
+    
     
     .form-group label {
         display: block;
@@ -86,6 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['account_info_nonce'])
         font-weight: 500;
         color: #2c3e50;
         font-size: 16px;
+                direction: rtl !important;
+
     }
     
     .form-input {
