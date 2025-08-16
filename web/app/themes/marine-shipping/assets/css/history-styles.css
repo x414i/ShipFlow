@@ -58,7 +58,7 @@
 }
 
 .filter-group label {
-  display: block;
+  /* display: block; */
   margin-bottom: 8px;
   font-weight: 600;
   color: #2c3e50;
