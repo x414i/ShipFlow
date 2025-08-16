@@ -38,26 +38,27 @@ function marine_shipping_setup() {
     )); // Register navigation menus
 }
 add_action('after_setup_theme', 'marine_shipping_setup');
+
 // Enqueue styles and scripts
 function marine_shipping_enqueue_assets() {
     // Register Font Awesome
     wp_register_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', array(), '5.15.4', 'all');
 
     // Enqueue styles
-    wp_enqueue_style('marine-shipping-style', get_template_directory_uri() . '/assets/css/style.css', array('font-awesome'), '1.0.0', 'all');
+    wp_enqueue_style('marine-shipping-style', get_template_directory_uri() . '/style.css', array('font-awesome'), '1.0.0', 'all');
     wp_enqueue_style('marine-shipping-dashboard-style', get_template_directory_uri() . '/assets/css/dashboard-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-shipping-account-style', get_template_directory_uri() . '/assets/css/account-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-culc-style', get_template_directory_uri() . '/assets/css/culc-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-history-style', get_template_directory_uri() . '/assets/css/history-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-price-style', get_template_directory_uri() . '/assets/css/prices-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-request-shipping-style', get_template_directory_uri() . '/assets/css/request-shipping-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-        wp_enqueue_style('marine-track-shipment-style', get_template_directory_uri() . '/assets/css/track-shipment.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-shipping-account-style', get_template_directory_uri() . '/assets/css/account-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-culc-style', get_template_directory_uri() . '/assets/css/culc-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-history-style', get_template_directory_uri() . '/assets/css/history-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-price-style', get_template_directory_uri() . '/assets/css/prices-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-request-shipping-style', get_template_directory_uri() . '/assets/css/request-shipping-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-track-shipment-style', get_template_directory_uri() . '/assets/css/track-shipment.css', array('marine-shipping-style'), '1.0.0', 'all');
 
     wp_enqueue_style('marine-shipping-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap', array(), null);
     wp_enqueue_style('marine-shipping-bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array(), '4.5.2', 'all');
 
     // Enqueue custom scripts
-    wp_enqueue_script('marine-shipping-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true);
+    wp_enqueue_script('marine-shipping-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), '1.0.0', true);
 
     // Localize script for AJAX
     wp_localize_script('marine-shipping-scripts', 'marineShipping', array(
@@ -66,6 +67,17 @@ function marine_shipping_enqueue_assets() {
     ));
 }
 add_action('wp_enqueue_scripts', 'marine_shipping_enqueue_assets');
+
+function marine_shipping_admin_enqueue_assets($hook) {
+    global $post;
+    if ($hook === 'post.php' || $hook === 'post-new.php') {
+        if (isset($post) && $post->post_type === 'shipping_request') {
+            wp_enqueue_style('marine-shipping-admin-style', get_template_directory_uri() . '/assets/css/admin-styles.css', array(), '1.0.0', 'all');
+            wp_enqueue_script('marine-shipping-admin-script', get_template_directory_uri() . '/assets/js/admin-scripts.js', array(), '1.0.0', true);
+        }
+    }
+}
+add_action('admin_enqueue_scripts', 'marine_shipping_admin_enqueue_assets');
 
 
 
@@ -79,29 +91,6 @@ require_once get_template_directory() . '/inc/admin-pages.php';
 require_once get_template_directory() . '/inc/custom-capabilities.php';
 require_once get_template_directory() . '/inc/scripts.php';
 require_once get_template_directory() . '/inc/columns.php';
-
-function custom_hide_classic_editor_wrap() {
-    ?>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            // , #comment-link-box
-            var editorWrap = document.querySelector('.wp-editor-wrap');
-            var editorWrapBox = document.querySelector(' #titlediv div.inside ');
-
-            if (editorWrap) {
-                editorWrap.style.display = 'none';
-                editorWrapBox.style.display = 'none';
-
-            }
-        });
-
-        // var wrap = document.querySelector('.wrap');
-        // if (wrap) {
-        //     wrap.style.direction = 'rtl';
-        // }
-    </script>
-    <?php
-}
 function get_translated_country_name($name) {
     if (get_locale() !== 'ar') {
         return $name;
@@ -127,145 +116,3 @@ function get_translated_country_name($name) {
 
     return isset($translations[$name]) ? $translations[$name] : $name;
 }
-
-add_action('admin_footer', 'custom_hide_classic_editor_wrap');
-add_action('admin_enqueue_scripts', function($hook) {
-    global $post;
-    if ($hook === 'post.php' || $hook === 'post-new.php') {
-        if (isset($post) && $post->post_type === 'shipping_request') {
-            echo '<style>
-                /* Custom styles for shipping request details */
-                body {
-                    font-family: "Roboto", sans-serif;
-                    background-color: #f8f9fa;
-                    color: #333;
-                    
-                }
-                #shipping_request_details {
-                    background-color:#f0f4f8;padding:20px;border-radius:10px;margin-bottom:20px;
-                }
-                #shipping_request_details h2 {
-                    font-size:24px;font-weight:600;margin-bottom:20px;color:#0077b6;
-                }
-                #shipping_request_details p {
-                    font-size:16px;margin-bottom:10px;color:#333;
-                }
-                #shipping_request_details input[type="text"], 
-                #shipping_request_details input[type="number"], 
-                #shipping_request_details select, 
-                #shipping_request_details textarea {
-                    width:100%;padding:10px 15px;border-radius:8px;border:1px solid #ddd;margin-bottom:15px;font-size:16px;box-sizing:border-box;
-                }
-                #shipping_request_details input[type="text"]:focus, 
-                #shipping_request_details input[type="number"]:focus, 
-                #shipping_request_details select:focus, 
-                #shipping_request_details textarea:focus {
-                    border-color:#0077b6;box-shadow:0 0 5px rgba(0, 119, 182, 0.2);
-                }                   
-                #shipping_request_details select {
-                    background-color:#fff;color:#333;padding:10px 15px;border-radius:8px;border:1px solid #ddd;font-size:16px;
-                    appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
-                }
-                #shipping_request_details input[type="submit"] {
-                    background-color:#0077b6;color:#fff;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:16px;
-                    transition:background-color 0.3s ease;
-                }
-                #shipping_request_details input[type="submit"]:hover {  
-                    background-color:#005f8a;
-                }
-                #shipping_request_details input[type="submit"]:active {
-                    background-color:#004f74;
-                }
-                #shipping_request_details input[type="submit"]:disabled {
-                    background-color:#ccc;color:#666;cursor:not-allowed;
-                }
-                #shipping_request_details .error {
-                    color:#d9534f;font-size:14px;margin-top:10px;
-                }
-                #shipping_request_details .success {
-                    color:#5cb85c;font-size:14px;margin-top:10px;
-                }
-                #shipping_request_details label {display:block;font-weight:600;margin-bottom:6px;color:#0077b6;}
-                #shipping_request_details input, 
-                #shipping_request_details select, 
-                #shipping_request_details textarea {
-                    width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:18px;font-size:15px;box-sizing:border-box;
-                }
-                #shipping_request_details textarea {min-height:70px;}
-            </style>';
-        }
-    }
-});
-add_action('admin_enqueue_scripts', function($hook) {
-    global $post;
-    if ($hook === 'post.php' || $hook === 'post-new.php') {
-        if (isset($post) && $post->post_type === 'shipping_request') {
-            echo '<style>
-                /* Custom styles for shipping request details */
-                body {
-                    font-family: "Roboto", sans-serif;
-                    background-color: #f8f9fa;
-                    color: #333;
-                    
-                }
-                #shipping_request_details {
-                    background-color:#f0f4f8;padding:20px;border-radius:10px;margin-bottom:20px;
-                }
-                #shipping_request_details h2 {
-                    font-size:24px;font-weight:600;margin-bottom:20px;color:#0077b6;
-                }
-                #shipping_request_details p {
-                    font-size:16px;margin-bottom:10px;color:#333;
-                }
-                #shipping_request_details input[type="text"], 
-                #shipping_request_details input[type="number"], 
-                #shipping_request_details select, 
-                #shipping_request_details textarea {
-                    width:100%;padding:10px 15px;border-radius:8px;border:1px solid #ddd;margin-bottom:15px;font-size:16px;box-sizing:border-box;
-                }
-                #shipping_request_details input[type="text"]:focus, 
-                #shipping_request_details input[type="number"]:focus, 
-                #shipping_request_details select:focus, 
-                #shipping_request_details textarea:focus {
-                    border-color:#0077b6;box-shadow:0 0 5px rgba(0, 119, 182, 0.2);
-                }                   
-                #shipping_request_details select {
-                    background-color:#fff;color:#333;padding:10px 15px;border-radius:8px;border:1px solid #ddd;font-size:16px;
-                    appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
-                }
-                #shipping_request_details input[type="submit"] {
-                    background-color:#0077b6;color:#fff;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:16px;
-                    transition:background-color 0.3s ease;
-                }
-                #shipping_request_details input[type="submit"]:hover {  
-                    background-color:#005f8a;
-                }
-                #shipping_request_details input[type="submit"]:active {
-                    background-color:#004f74;
-                }
-                #shipping_request_details input[type="submit"]:disabled {
-                    background-color:#ccc;color:#666;cursor:not-allowed;
-                }
-                #shipping_request_details .error {
-                    color:#d9534f;font-size:14px;margin-top:10px;
-                }
-                #shipping_request_details .success {
-                    color:#5cb85c;font-size:14px;margin-top:10px;
-                }
-                #shipping_request_details label {display:block;font-weight:600;margin-bottom:6px;color:#0077b6;}
-                #shipping_request_details input, 
-                #shipping_request_details select, 
-                #shipping_request_details textarea {
-                    width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:18px;font-size:15px;box-sizing:border-box;
-                }
-                #shipping_request_details textarea {min-height:70px;}
-            </style>';
-        }
-    }
-});
-
-
-function marine_shipping_theme_setup() {
-    load_theme_textdomain('marine-shipping', get_template_directory() . '/languages');
-}
-add_action('after_setup_theme', 'marine_shipping_theme_setup');
