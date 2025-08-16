@@ -39,38 +39,26 @@ function marine_shipping_setup() {
 }
 add_action('after_setup_theme', 'marine_shipping_setup');
 // Enqueue styles and scripts
-function marine_shipping_enqueue_scripts() {
-    // Enqueue main stylesheet
-    wp_enqueue_style('marine-shipping-style', get_stylesheet_uri(), array(), wp_get_theme()->get('Version'), 'all');
+function marine_shipping_enqueue_assets() {
+    // Register Font Awesome
+    wp_register_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', array(), '5.15.4', 'all');
+
+    // Enqueue styles
+    wp_enqueue_style('marine-shipping-style', get_template_directory_uri() . '/assets/css/style.css', array('font-awesome'), '1.0.0', 'all');
+    wp_enqueue_style('marine-shipping-dashboard-style', get_template_directory_uri() . '/assets/css/dashboard-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
+    wp_enqueue_style('marine-shipping-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap', array(), null);
+    wp_enqueue_style('marine-shipping-bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array(), '4.5.2', 'all');
+
     // Enqueue custom scripts
-    wp_enqueue_script('marine-shipping-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), wp_get_theme()->get('Version'), true);
+    wp_enqueue_script('marine-shipping-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true);
+
     // Localize script for AJAX
     wp_localize_script('marine-shipping-scripts', 'marineShipping', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('marine_shipping_nonce'),
     ));
 }
-add_action('wp_enqueue_scripts', 'marine_shipping_enqueue_scripts');
-// Enqueue styles
-add_action('wp_enqueue_scripts', 'marine_shipping_enqueue_styles');
-function marine_shipping_enqueue_styles() {
-    // Enqueue main stylesheet
-    // if (is_rtl()) {
-    //     wp_enqueue_style('marine-shipping-style-rtl', get_template_directory_uri() . '/rtl.css', array(), '1.0.0', 'all');
-    // } else {
-        wp_enqueue_style('marine-shipping-style', get_template_directory_uri() . '/style.css', array(), '1.0.0', 'all');
-    // }
-    // Enqueue Google Fonts
-    wp_enqueue_style('marine-shipping-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap', array(), null);
-    // wp_enqueue_style('', marine_get_stylesheet_uri(), array(), '1.0.0', 'all');
-    // Enqueue Font Awesome
-    wp_enqueue_style('marine-shipping-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css', array(), '5.15.3', 'all');
-    // Enqueue custom styles
-    wp_enqueue_style('marine-shipping-dashboard-style', get_template_directory_uri() . '/assets/css/dashboard-styles.css', array('marine-shipping-style'), '1.0.0', 'all');
-    // Enqueue Bootstrap CSS
-    wp_enqueue_style('marine-shipping-bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array(), '4.5.2', 'all');
-    // Enqueue custom styles
-}
+add_action('wp_enqueue_scripts', 'marine_shipping_enqueue_assets');
 
 
 

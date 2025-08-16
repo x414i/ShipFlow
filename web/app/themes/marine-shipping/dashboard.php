@@ -141,6 +141,8 @@ foreach ($shipment_types as $type_key => $type_label) {
 
 <!-- <div class="dashboard-container">
     <main class="dashboard-content"> -->
+        <main class="main-content" id="mainContent">
+
         <div class="dashboard-welcome">
             <h2>مرحباً بك في لوحة التحكم، <?php echo $current_user->display_name; ?></h2>
             <p>إحصاءات شاملة لشحناتك حسب الأنواع المختلفة</p>
@@ -347,5 +349,6 @@ foreach ($shipment_types as $type_key => $type_label) {
         <?php endif; ?>
     <!-- </main>
 </div> -->
+</main>
 
 <?php get_footer(); ?>
