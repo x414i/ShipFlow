@@ -79,9 +79,9 @@ foreach ($countries as $country) {
             <div class="result-container">
                 <p class="result-title">السعر المتوقع:</p>
                 <p id="total_price">0 دولار</p>
-                <div class="shipping-type-icon">
+                <!-- <div class="shipping-type-icon">
                     <i class="fas fa-truck"></i>
-                </div>
+                </div> -->
             </div>
             
             <p id="error_message"></p>
