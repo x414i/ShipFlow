@@ -69,10 +69,14 @@ if (!empty($date_filter)) {
     ];
 }
 
+// Pagination
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
 // بحث برقم الطلب
 $args = [
     'post_type' => 'shipping_request',
-    'posts_per_page' => -1,
+    'posts_per_page' => 10, // تحديد 10 طلبات في كل صفحة
+    'paged' => $paged,
     'author' => $current_user_id,
     'meta_query' => $meta_query,
     'date_query' => $date_query,
@@ -85,291 +89,19 @@ if (!empty($search_name)) {
 }
 
 if ($order_id_search > 0) {
-    $shipping_requests = get_posts([
+    $shipping_requests_query = new WP_Query([
         'post_type' => 'shipping_request',
         'p' => $order_id_search,
         'author' => $current_user_id,
     ]);
 } else {
-    $shipping_requests = get_posts($args);
+    $shipping_requests_query = new WP_Query($args);
 }
+
+$shipping_requests = $shipping_requests_query->posts;
 ?>
 
-<style>
-    .shipping-history-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 20px;
-        background: #fff;
-        border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-    
-    .history-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .history-header h2 {
-        margin: 0;
-        font-size: 30px;
-        color: #2c3e50;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-    }
-    
-    .history-header i {
-        background: #3498db;
-        color: white;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 15px;
-        font-size: 22px;
-    }
-    
-    .filters-container {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 30px;
-        border: 1px solid #eee;
-    }
-    
-    .filters-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-    
-    .filter-group {
-        margin-bottom: 10px;
-    }
-    
-    .filter-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #2c3e50;
-        font-size: 14px;
-    }
-    
-    .filter-input {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 14px;
-        background: #fff;
-        transition: all 0.3s;
-    }
-    
-    .filter-input:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        outline: none;
-    }
-    
-    .filter-select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%237f8c8d' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        background-size: 12px;
-        padding-right: 35px;
-    }
-    
-    .filter-buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        padding-top: 10px;
-        border-top: 1px solid #eee;
-        margin-top: 10px;
-    }
-    
-    .filter-btn {
-        background: #3498db;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .filter-btn:hover {
-        background: #2980b9;
-        transform: translateY(-2px);
-    }
-    
-    .reset-btn {
-        background: #e74c3c;
-    }
-    
-    .reset-btn:hover {
-        background: #c0392b;
-    }
-    
-    .orders-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .orders-table th {
-        background: #3498db;
-        color: white;
-        text-align: right;
-        padding: 15px;
-        font-weight: 600;
-    }
-    
-    .orders-table td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #eee;
-        text-align: right;
-    }
-    
-    .orders-table tr:nth-child(even) {
-        background: #f9fafb;
-    }
-    
-    .orders-table tr:hover {
-        background: #f0f7ff;
-    }
-    
-    .status-badge {
-        display: inline-block;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-    }
-    
-    .status-new {
-        background: #e8f4fd;
-        color: #3498db;
-        border: 1px solid #b8dcfa;
-    }
-    
-    .status-review {
-        background: #fef7e0;
-        color: #e67e22;
-        border: 1px solid #fad7a0;
-    }
-    
-    .status-shipping {
-        background: #e8f6ef;
-        color: #27ae60;
-        border: 1px solid #a9dfbf;
-    }
-    
-    .status-delivered {
-        background: #f4ecf7;
-        color: #8e44ad;
-        border: 1px solid #d2b4de;
-    }
-    
-    .order-link {
-        color: #2980b9;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-    
-    .order-link:hover {
-        color: #1a5276;
-        text-decoration: underline;
-    }
-    
-    .no-orders {
-        text-align: center;
-        padding: 40px;
-        background: #f9fafb;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
-    
-    .no-orders i {
-        font-size: 50px;
-        color: #bdc3c7;
-        margin-bottom: 15px;
-    }
-    
-    .no-orders p {
-        font-size: 18px;
-        color: #7f8c8d;
-        margin: 0;
-    }
-    
-    .mobile-card {
-        display: none;
-        background: #fff;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        border: 1px solid #eee;
-    }
-    
-    .card-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #f5f5f5;
-    }
-    
-    .card-label {
-        font-weight: 600;
-        color: #2c3e50;
-        min-width: 120px;
-    }
-    
-    .card-value {
-        color: #34495e;
-        text-align: left;
-    }
-    
-    @media (max-width: 992px) {
-        .orders-table {
-            display: none;
-        }
-        
-        .mobile-card {
-            display: block;
-        }
-        
-        .filters-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .history-header h2 {
-            font-size: 24px;
-        }
-    }
-</style>
-
+    <main id="main-content" class="site-main">
 <div class="shipping-history-container">
     <div class="history-header">
         <i class="fas fa-history"></i>
@@ -430,7 +162,7 @@ if ($order_id_search > 0) {
             </div>
             
             <div class="filter-buttons">
-                <a href="<?php echo esc_url(get_permalink()); ?>" class="filter-btn reset-btn">
+                <a href="<?php echo esc_url(add_query_arg('paged', $paged > 1 ? $paged : false, get_permalink())); ?>" class="filter-btn reset-btn">
                     <i class="fas fa-sync-alt"></i>
                     إعادة تعيين
                 </a>
@@ -595,8 +327,25 @@ if ($order_id_search > 0) {
             <p>لا توجد طلبات تطابق معايير البحث</p>
         </div>
     <?php endif; ?>
-</div>
 
+    <?php if ($shipping_requests_query->max_num_pages > 1) : ?>
+        <div class="pagination-container">
+            <?php
+            $big = 999999999;
+            echo paginate_links([
+                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                'format' => '?paged=%#%',
+                'current' => max(1, $paged),
+                'total' => $shipping_requests_query->max_num_pages,
+                'prev_text' => '<i class="fas fa-chevron-left"></i>',
+                'next_text' => '<i class="fas fa-chevron-right"></i>',
+            ]);
+            ?>
+        </div>
+    <?php endif; ?>
+    <?php wp_reset_postdata(); ?>
+</div>
+        </main>
 <?php
 get_footer();
 ?>
