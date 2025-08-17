@@ -28,7 +28,7 @@ get_header();
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
-                <img src="<?php echo get_template_directory_uri() . '/assets/img/logo.png' ?>" alt="لوحة التحكم">
+                <img src="<?php echo get_template_directory_uri() . '/assets/img/shipflow.png' ?>" alt="لوحة التحكم">
                 <h2>لوحة التحكم</h2>
             </div>
         </div>
@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     mobileToggle.addEventListener('click', function() {
         sidebar.classList.toggle('active');
-        body.classList.toggle('no-scroll'); // لمنع التمرير عند فتح القائمة
+        body.classList.toggle('no-scroll'); 
+        
     });
 
     // Sidebar collapse toggle for desktop
