@@ -1,40 +1,42 @@
-jQuery(document).ready(function ($) {
-  $("#country-select").on("change", function () {
-    var countryId = $(this).val();
-    var weight = $("#weight-input").val();
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("sidebar");
+  const toggleSidebar = document.getElementById("toggleSidebar");
+  const mobileToggle = document.getElementById("mobileToggle");
+  const overlay = document.getElementById("overlay");
+  const mainContent = document.getElementById("mainContent");
 
-    if (countryId && weight) {
-      calculateShipping(countryId, weight);
-    }
-  });
+  // Function to toggle sidebar for desktop
+  const handleToggleSidebar = () => {
+    document.body.classList.toggle("sidebar-collapsed");
+  };
 
-  $("#weight-input").on("input", function () {
-    var weight = $(this).val();
-    var countryId = $("#country-select").val();
+  // Function to toggle sidebar for mobile
+  const handleMobileToggle = () => {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
+  };
 
-    if (countryId && weight) {
-      calculateShipping(countryId, weight);
-    }
-  });
-
-  function calculateShipping(countryId, weight) {
-    $.ajax({
-      url: x414iShipping.ajax_url,
-      type: "POST",
-      data: {
-        action: "get_price_per_kg",
-        nonce: x414iShipping.nonce,
-        country_id: countryId,
-      },
-      success: function (response) {
-        if (response.success) {
-          var pricePerKg = response.data.price_per_kg;
-          var totalPrice = weight * pricePerKg;
-          $("#total-price").text(totalPrice.toFixed(2) + " $");
-        } else {
-          $("#total-price").text(response.data);
-        }
-      },
-    });
+  // Event Listeners
+  if (toggleSidebar) {
+    toggleSidebar.addEventListener("click", handleToggleSidebar);
   }
+
+  if (mobileToggle) {
+    mobileToggle.addEventListener("click", handleMobileToggle);
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", handleMobileToggle);
+  }
+
+  // Optional: Close sidebar when clicking a link inside it on mobile
+  const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 992 && sidebar.classList.contains("active")) {
+        handleMobileToggle();
+      }
+    });
+  });
 });
