@@ -127,7 +127,7 @@ ul {
   padding: 12px 15px;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   border-radius: 6px;
   margin-bottom: 5px;
   transition: var(--transition);
@@ -269,6 +269,7 @@ body.sidebar-collapsed .user-profile {
 
 body.sidebar-collapsed .sidebar-nav a {
   justify-content: center;
+  font-size: 24px;
 }
 
 body.sidebar-collapsed .toggle-sidebar {
@@ -345,7 +346,7 @@ body.sidebar-collapsed .main-content {
   }
 
   .sidebar-nav a {
-    font-size: 13px;
+    font-size: 18px;
     padding: 10px;
   }
 
