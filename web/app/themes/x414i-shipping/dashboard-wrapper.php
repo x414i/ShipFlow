@@ -66,10 +66,10 @@ get_header();
             </div>
         </nav>
     </aside>
-    <main class="main-content" id="mainContent">
+    <!-- <main class="main-content" id="mainContent"> -->
         <!-- محتوى الصفحة سيوضع هنا -->
-    </main>
-</div>
+    <!-- </main> -->
+<!-- </div> -->
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

@@ -13,10 +13,9 @@ if (!is_user_logged_in()) {
 $current_user = wp_get_current_user();
 $user_id = $current_user->ID;
 
-// تحميل ملف التنسيقات
-wp_enqueue_style('dashboard-styles', get_template_directory_uri() . '/dashboard-styles.css');
+// wp_enqueue_style('dashboard-styles', get_template_directory_uri() . '/dashboard-styles.css');
 
-// استرجاع إحصائيات الشحنات من قاعدة البيانات
+// query count of shipments
 $args = [
     'post_type' => 'shipping_request',
     'posts_per_page' => -1,
@@ -24,10 +23,10 @@ $args = [
     'post_status' => 'publish',
 ];
 
-// إجمالي الشحنات
+// total shipments
 $total_shipments = count(get_posts($args));
 
-// الشحنات المكتملة
+// shipments completed 
 $args_completed = array_merge($args, [
     'meta_query' => [
         [
@@ -39,7 +38,7 @@ $args_completed = array_merge($args, [
 ]);
 $completed_shipments = count(get_posts($args_completed));
 
-// الشحنات قيد التوصيل
+//  shipments in transit 
 $args_in_transit = array_merge($args, [
     'meta_query' => [
         [
@@ -51,11 +50,13 @@ $args_in_transit = array_merge($args, [
 ]);
 $in_transit = count(get_posts($args_in_transit));
 
-// إحصائيات حسب نوع الشحن
+// types of shipments
+// Assuming you have a custom field '_shipping_type' to differentiate shipment types
+// and the types are stored as 'land', 'sea', 'air', 'fast'
 $shipment_types = ['land' => 'بري', 'sea' => 'بحري', 'air' => 'جوي', 'fast' => 'سريع'];
 $type_stats = [];
 
-foreach ($shipment_types as $type_key => $type_label) {
+foreach ($shipment_types as $type_key => $type_label) { 
     $args_type = array_merge($args, [
         'meta_query' => [
             [
@@ -69,7 +70,7 @@ foreach ($shipment_types as $type_key => $type_label) {
     $type_posts = get_posts($args_type);
     $total = count($type_posts);
 
-    // الشحنات المكتملة لهذا النوع
+    //  completed shipments for this type
     $args_type_completed = array_merge($args_type, [
         'meta_query' => [
             [
@@ -118,10 +119,10 @@ foreach ($shipment_types as $type_key => $type_label) {
     ];
 }
 
-// آخر 3 شحنات
+// last 5 shipments
 $recent_args = [
     'post_type' => 'shipping_request',
-    'posts_per_page' => 3,
+    'posts_per_page' => 5,
     'author' => $user_id,
     'orderby' => 'date',
     'order' => 'DESC',
@@ -129,14 +130,6 @@ $recent_args = [
 ];
 $recent_shipments = get_posts($recent_args);
 
-// حساب النسب المئوية
-$completion_rate = ($total_shipments > 0) ? round(($completed_shipments / $total_shipments) * 100) : 0;
-$type_completion_rates = [];
-
-foreach ($shipment_types as $type_key => $type_label) {
-    $stats = $type_stats[$type_key];
-    $type_completion_rates[$type_key] = ($stats['total'] > 0) ? round(($stats['completed'] / $stats['total']) * 100) : 0;
-}
 ?>
 
 <div class="dashboard-container">
@@ -145,29 +138,10 @@ foreach ($shipment_types as $type_key => $type_label) {
             <h2>مرحباً بك في لوحة التحكم، <?php echo $current_user->display_name; ?></h2>
             <p>إحصاءات شاملة لشحناتك حسب الأنواع المختلفة</p>
         </div>
-        
-        <!-- <div class="stats-grid">
-            <div class="stat-card">
-                <h3>إجمالي الشحنات</h3>
-                <p><?php echo $total_shipments; ?></p>
-                <p class="stat-desc">جميع طلبات الشحن</p>
-            </div>
-            
-            <div class="stat-card">
-                <h3>الشحنات المكتملة</h3>
-                <p><?php echo $completed_shipments; ?></p>
-                <p class="stat-desc">معدل الإنجاز <?php echo $completion_rate; ?>%</p>
-            </div>
-            
-            <div class="stat-card">
-                <h3>جاري الشحن</h3>
-                <p><?php echo $in_transit; ?></p>
-                <p class="stat-desc">الشحنات قيد التوصيل</p>
-            </div>
-        </div> -->
+
         
         <div class="shipment-stats">
-            <!-- الشحن البري -->
+            <!--  land-shipment -->
             <div class="shipment-type ground">
                 <div class="shipment-header">
                     <h3 class="shipment-title">الشحن البري</h3>
@@ -203,7 +177,7 @@ foreach ($shipment_types as $type_key => $type_label) {
                     </div>
                 </div> -->
             </div>
-            <!-- الشحن البحري -->
+            <!--  sea-shipment -->
             <div class="shipment-type sea">
                 <div class="shipment-header">
                     <h3 class="shipment-title">الشحن البحري</h3>
@@ -240,7 +214,7 @@ foreach ($shipment_types as $type_key => $type_label) {
                 </div>-->
             </div> 
             
-            <!-- الشحن الجوي -->
+            <!--  air-shipment -->
             <div class="shipment-type air">
                 <div class="shipment-header">
                     <h3 class="shipment-title">الشحن الجوي</h3>
@@ -277,7 +251,7 @@ foreach ($shipment_types as $type_key => $type_label) {
                 </div> -->
             </div>
             
-            <!-- الشحن السريع -->
+            <!--  express-shipment -->
             <div class="shipment-type express">
                 <div class="shipment-header">
                     <h3 class="shipment-title">الشحن السريع</h3>
