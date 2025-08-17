@@ -23,7 +23,7 @@
 function add_shipping_request_meta_boxes() {
     add_meta_box(
         'shipping_request_details',
-        __('Shipping Request Details', 'marine-shipping'),
+        __('Shipping Request Details', 'x414i-shipping'),
         'render_shipping_request_meta_box',
         'shipping_request',
         'normal',
@@ -48,14 +48,14 @@ function render_shipping_request_meta_box($post) {
     ]);
     ?>
 
-    <label for="weight"><?php echo __('Weight (kg):', 'marine-shipping'); ?></label>
+    <label for="weight"><?php echo __('Weight (kg):', 'x414i-shipping'); ?></label>
     <input type="number" name="weight" id="weight" value="<?php echo esc_attr($weight); ?>" step="0.01" min="0" />
 
     <br><br>
 
-    <label for="country_id"><?php echo __('Select Country:', 'marine-shipping'); ?></label>
+    <label for="country_id"><?php echo __('Select Country:', 'x414i-shipping'); ?></label>
     <select name="country_id" id="country_id">
-        <option value=""><?php echo __('-- Select Country --', 'marine-shipping'); ?></option>
+        <option value=""><?php echo __('-- Select Country --', 'x414i-shipping'); ?></option>
         <?php
         foreach ($countries as $country) {
             printf(
@@ -70,17 +70,17 @@ function render_shipping_request_meta_box($post) {
 
     <br><br>
 
-    <label for="order_status"><?php echo __('Order Status:', 'marine-shipping'); ?></label>
+    <label for="order_status"><?php echo __('Order Status:', 'x414i-shipping'); ?></label>
     <select name="order_status" id="order_status">
-        <option value="new" <?php selected($order_status, 'new'); ?>><?php echo __('New', 'marine-shipping'); ?></option>
-        <option value="processing" <?php selected($order_status, 'processing'); ?>><?php echo __('Processing', 'marine-shipping'); ?></option>
-        <option value="shipped" <?php selected($order_status, 'shipped'); ?>><?php echo __('Shipped', 'marine-shipping'); ?></option>
-        <option value="delivered" <?php selected($order_status, 'delivered'); ?>><?php echo __('Delivered', 'marine-shipping'); ?></option>
+        <option value="new" <?php selected($order_status, 'new'); ?>><?php echo __('New', 'x414i-shipping'); ?></option>
+        <option value="processing" <?php selected($order_status, 'processing'); ?>><?php echo __('Processing', 'x414i-shipping'); ?></option>
+        <option value="shipped" <?php selected($order_status, 'shipped'); ?>><?php echo __('Shipped', 'x414i-shipping'); ?></option>
+        <option value="delivered" <?php selected($order_status, 'delivered'); ?>><?php echo __('Delivered', 'x414i-shipping'); ?></option>
     </select>
 
     <br><br>
 
-    <label for="notes"><?php echo __('Notes:', 'marine-shipping'); ?></label>
+    <label for="notes"><?php echo __('Notes:', 'x414i-shipping'); ?></label>
     <textarea name="notes" id="notes" rows="3" style="width:100%;"><?php echo esc_textarea($notes); ?></textarea>
 
     <?php

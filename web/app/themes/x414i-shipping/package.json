@@ -1,7 +1,7 @@
 {
-  "name": "marine-shipping",
+  "name": "x414i-shipping",
   "version": "1.0.0",
-  "description": "Marine Shipping Theme",
+  "description": "x414i Shipping Theme",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

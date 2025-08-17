@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Marine Shipping\n"
+"Project-Id-Version: x414i Shipping\n"
 "POT-Creation-Date: 2024-08-14 12:38+0200\n"
 "PO-Revision-Date: 2024-08-14 12:38+0200\n"
 "Last-Translator: \n"

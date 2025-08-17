@@ -1,7 +1,7 @@
 <?php
 
 function ajax_get_price_per_kg() {
-    check_ajax_referer('marine_shipping_nonce', 'nonce');
+    check_ajax_referer('x414i_shipping_nonce', 'nonce');
 
     if (!isset($_POST['country_id'])) {
         wp_send_json_error('لم يتم تحديد الدولة');

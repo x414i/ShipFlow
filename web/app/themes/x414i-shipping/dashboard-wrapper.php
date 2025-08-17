@@ -51,7 +51,7 @@ get_header();
         <nav class="sidebar-nav">
             <?php
             wp_nav_menu([
-                'theme_location' => 'dashboard-menu',
+                'theme_location' => 'sidebar',
                 'container' => false,
                 'menu_class' => 'sidebar-menu',
                 'fallback_cb' => false,

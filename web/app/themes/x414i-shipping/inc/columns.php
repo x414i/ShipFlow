@@ -3,11 +3,11 @@
 function add_shipping_request_columns($columns) {
     $new_columns = [
         'cb' => $columns['cb'], 
-        'title' => __('Request Title', 'marine-shipping'),
-        'weight' => __('Weight (kg)', 'marine-shipping'),
-        'country' => __('Country', 'marine-shipping'),
-        'total_price' => __('Total Price', 'marine-shipping'),
-        'order_status' => __('Order Status', 'marine-shipping'),
+        'title' => __('Request Title', 'x414i-shipping'),
+        'weight' => __('Weight (kg)', 'x414i-shipping'),
+        'country' => __('Country', 'x414i-shipping'),
+        'total_price' => __('Total Price', 'x414i-shipping'),
+        'order_status' => __('Order Status', 'x414i-shipping'),
         'date' => $columns['date'],
     ];
     return $new_columns;
@@ -41,10 +41,10 @@ function fill_shipping_request_columns($column, $post_id) {
             $status_slug = get_post_meta($post_id, '_order_status', true);
             if ($status_slug) {
                 $statuses = [
-                    'new' => __('New', 'marine-shipping'),
-                    'processing' => __('Processing', 'marine-shipping'),
-                    'shipped' => __('Shipped', 'marine-shipping'),
-                    'delivered' => __('Delivered', 'marine-shipping'),
+                    'new' => __('New', 'x414i-shipping'),
+                    'processing' => __('Processing', 'x414i-shipping'),
+                    'shipped' => __('Shipped', 'x414i-shipping'),
+                    'delivered' => __('Delivered', 'x414i-shipping'),
                 ];
                 echo isset($statuses[$status_slug]) ? esc_html($statuses[$status_slug]) : esc_html($status_slug);
             } else {

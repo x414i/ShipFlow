@@ -19,11 +19,11 @@ jQuery(document).ready(function ($) {
 
   function calculateShipping(countryId, weight) {
     $.ajax({
-      url: marineShipping.ajax_url,
+      url: x414iShipping.ajax_url,
       type: "POST",
       data: {
         action: "get_price_per_kg",
-        nonce: marineShipping.nonce,
+        nonce: x414iShipping.nonce,
         country_id: countryId,
       },
       success: function (response) {

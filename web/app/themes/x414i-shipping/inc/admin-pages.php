@@ -15,7 +15,7 @@
 
 function render_shipping_requests_admin_page() {
     if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have sufficient permissions to access this page.', 'marine-shipping'));
+        wp_die(__('You do not have sufficient permissions to access this page.', 'x414i-shipping'));
     }
 
     $args = [
@@ -41,21 +41,21 @@ function render_shipping_requests_admin_page() {
     $shipping_requests = new WP_Query($args);
 
     $statuses = [
-        'new' => __('New', 'marine-shipping'),
-        'processing' => __('Processing', 'marine-shipping'),
-        'shipped' => __('Shipped', 'marine-shipping'),
-        'delivered' => __('Delivered', 'marine-shipping'),
+        'new' => __('New', 'x414i-shipping'),
+        'processing' => __('Processing', 'x414i-shipping'),
+        'shipped' => __('Shipped', 'x414i-shipping'),
+        'delivered' => __('Delivered', 'x414i-shipping'),
     ];
 
     ?>
     <div class="wrap">
-        <h1><?php _e('Manage Shipping Requests', 'marine-shipping'); ?></h1>
+        <h1><?php _e('Manage Shipping Requests', 'x414i-shipping'); ?></h1>
 
         <form method="get" style="margin-bottom:20px;">
             <input type="hidden" name="page" value="manage-shipping-requests" />
-            <label for="order_status"><?php _e('Order Status:', 'marine-shipping'); ?> </label>
+            <label for="order_status"><?php _e('Order Status:', 'x414i-shipping'); ?> </label>
             <select name="order_status" id="order_status" onchange="this.form.submit()">
-                <option value=""><?php _e('All', 'marine-shipping'); ?></option>
+                <option value=""><?php _e('All', 'x414i-shipping'); ?></option>
                 <?php foreach ($statuses as $slug => $label) : ?>
                     <option value="<?php echo esc_attr($slug); ?>" <?php selected($selected_status, $slug); ?>><?php echo esc_html($label); ?></option>
                 <?php endforeach; ?>
@@ -65,12 +65,12 @@ function render_shipping_requests_admin_page() {
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th><?php _e('Order Number', 'marine-shipping'); ?></th>
-                    <th><?php _e('Weight (kg)', 'marine-shipping'); ?></th>
-                    <th><?php _e('Country', 'marine-shipping'); ?></th>
-                    <th><?php _e('Total Price', 'marine-shipping'); ?></th>
-                    <th><?php _e('Order Status', 'marine-shipping'); ?></th>
-                    <th><?php _e('Order Date', 'marine-shipping'); ?></th>
+                    <th><?php _e('Order Number', 'x414i-shipping'); ?></th>
+                    <th><?php _e('Weight (kg)', 'x414i-shipping'); ?></th>
+                    <th><?php _e('Country', 'x414i-shipping'); ?></th>
+                    <th><?php _e('Total Price', 'x414i-shipping'); ?></th>
+                    <th><?php _e('Order Status', 'x414i-shipping'); ?></th>
+                    <th><?php _e('Order Date', 'x414i-shipping'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -95,7 +95,7 @@ function render_shipping_requests_admin_page() {
                     </tr>
                     <?php endwhile; wp_reset_postdata(); ?>
                 <?php else: ?>
-                    <tr><td colspan="6"><?php _e('No requests found.', 'marine-shipping'); ?></td></tr>
+                    <tr><td colspan="6"><?php _e('No requests found.', 'x414i-shipping'); ?></td></tr>
                 <?php endif; ?>
             </tbody>
         </table>

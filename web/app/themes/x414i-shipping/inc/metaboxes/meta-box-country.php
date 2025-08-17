@@ -3,7 +3,7 @@
 // function add_country_meta_boxes() {
 //     add_meta_box(
 //         'country_shipping_meta',
-//         __('Shipping Data', 'marine-shipping'),
+//         __('Shipping Data', 'x414i-shipping'),
 //         'render_country_shipping_meta_box',
 //         'country',
 //         'normal',
@@ -20,15 +20,15 @@ function render_country_shipping_meta_box($post) {
     $price_per_kg = get_post_meta($post->ID, '_price_per_kg', true);
 
     ?>
-    <label for="shipping_type"><?php _e('Shipping Type:', 'marine-shipping'); ?></label>
+    <label for="shipping_type"><?php _e('Shipping Type:', 'x414i-shipping'); ?></label>
     <select name="shipping_type" id="shipping_type">
-        <option value="sea" <?php selected($shipping_type, 'sea'); ?>><?php _e('Sea', 'marine-shipping'); ?></option>
-        <option value="land" <?php selected($shipping_type, 'land'); ?>><?php _e('Land', 'marine-shipping'); ?></option>
+        <option value="sea" <?php selected($shipping_type, 'sea'); ?>><?php _e('Sea', 'x414i-shipping'); ?></option>
+        <option value="land" <?php selected($shipping_type, 'land'); ?>><?php _e('Land', 'x414i-shipping'); ?></option>
     </select>
 
     <br><br>
 
-    <label for="price_per_kg"><?php _e('Price per KG (in currency):', 'marine-shipping'); ?></label>
+    <label for="price_per_kg"><?php _e('Price per KG (in currency):', 'x414i-shipping'); ?></label>
     <input type="number" name="price_per_kg" id="price_per_kg" value="<?php echo esc_attr($price_per_kg); ?>" step="0.01" min="0" />
     <?php
 }
@@ -60,7 +60,7 @@ add_action('save_post', 'save_country_shipping_meta');
 function country_add_meta_boxes() {
     add_meta_box(
         'shipping_prices_meta_box',     // ID
-        __('Shipping Prices', 'marine-shipping'), // Title
+        __('Shipping Prices', 'x414i-shipping'), // Title
         'country_shipping_prices_html', // Callback
         'country',                     // Screen (post type)
         'normal',                      // Context
@@ -80,19 +80,19 @@ function country_shipping_prices_html($post) {
 
     ?>
     <p>
-        <label for="price_land"><?php _e('Land Shipping Price per KG:', 'marine-shipping'); ?></label><br>
+        <label for="price_land"><?php _e('Land Shipping Price per KG:', 'x414i-shipping'); ?></label><br>
         <input type="number" step="0.01" min="0" name="price_land" id="price_land" value="<?php echo esc_attr($price_land); ?>">
     </p>
     <p>
-        <label for="price_sea"><?php _e('Sea Shipping Price per KG:', 'marine-shipping'); ?></label><br>
+        <label for="price_sea"><?php _e('Sea Shipping Price per KG:', 'x414i-shipping'); ?></label><br>
         <input type="number" step="0.01" min="0" name="price_sea" id="price_sea" value="<?php echo esc_attr($price_sea); ?>">
     </p>
     <p>
-        <label for="price_air"><?php _e('Air Shipping Price per KG:', 'marine-shipping'); ?></label><br>
+        <label for="price_air"><?php _e('Air Shipping Price per KG:', 'x414i-shipping'); ?></label><br>
         <input type="number" step="0.01" min="0" name="price_air" id="price_air" value="<?php echo esc_attr($price_air); ?>">
     </p>
     <p>
-        <label for="price_fast"><?php _e('Fast Shipping Price per KG:', 'marine-shipping'); ?></label><br>
+        <label for="price_fast"><?php _e('Fast Shipping Price per KG:', 'x414i-shipping'); ?></label><br>
         <input type="number" step="0.01" min="0" name="price_fast" id="price_fast" value="<?php echo esc_attr($price_fast); ?>">
     </p>
     <?php
