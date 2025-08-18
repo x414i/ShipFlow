@@ -1,18 +1,5 @@
 <?php
 
-// function register_shipping_requests_admin_page() {
-//     // add_menu_page(
-//     //     'إدارة طلبات الشحن',
-//     //     'طلبات الشحن1',
-//     //     'manage_options',
-//     //     'manage-shipping-requests',
-//     //     'render_shipping_requests_admin_page',
-//     //     'dashicons-archive',
-//     //     60
-//     // );
-// }
-// add_action('admin_menu', 'register_shipping_requests_admin_page');
-
 function render_shipping_requests_admin_page() {
     if (!current_user_can('manage_options')) {
         wp_die(__('You do not have sufficient permissions to access this page.', 'x414i-shipping'));
