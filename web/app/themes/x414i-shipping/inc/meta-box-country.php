@@ -1,19 +1,6 @@
 <?php
 
-// function add_country_meta_boxes() {
-//     add_meta_box(
-//         'country_shipping_meta',
-//         __('Shipping Data', 'x414i-shipping'),
-//         'render_country_shipping_meta_box',
-//         'country',
-//         'normal',
-//         'high'
-//     );
-// }
-// add_action('add_meta_boxes', 'add_country_meta_boxes');
-
 function render_country_shipping_meta_box($post) {
-    // nonce للأمان
     wp_nonce_field('save_country_shipping_meta', 'country_shipping_meta_nonce');
 
     $shipping_type = get_post_meta($post->ID, '_shipping_type', true);
@@ -59,12 +46,12 @@ add_action('save_post', 'save_country_shipping_meta');
 
 function country_add_meta_boxes() {
     add_meta_box(
-        'shipping_prices_meta_box',     // ID
-        __('Shipping Prices', 'x414i-shipping'), // Title
-        'country_shipping_prices_html', // Callback
-        'country',                     // Screen (post type)
-        'normal',                      // Context
-        'high'                        // Priority
+        'shipping_prices_meta_box',     
+        __('Shipping Prices', 'x414i-shipping'), 
+        'country_shipping_prices_html', 
+        'country',                     
+        'normal',                      
+        'high'                        
     );
 }
 add_action('add_meta_boxes', 'country_add_meta_boxes');
