@@ -6,7 +6,7 @@
  * @package x414iShipping
  */
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+    exit; 
 }
 // Theme setup
 function x414i_shipping_setup() {
