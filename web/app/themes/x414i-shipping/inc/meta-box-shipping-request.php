@@ -1,24 +1,5 @@
 <?php
 
-// function calculate_shipping_total_price($post_id) {
-//     if (get_post_type($post_id) !== 'shipping_request') {
-//         return;
-//     }
-
-
-//     $weight = isset($_POST['weight']) ? floatval($_POST['weight']) : 0;
-//     $country_id = isset($_POST['country_id']) ? intval($_POST['country_id']) : 0;
-
-//     if ($weight > 0 && $country_id > 0) {
-//         $price_per_kg = get_post_meta($country_id, '_price_per_kg', true);
-//         if ($price_per_kg) {
-//             $total_price = $weight * floatval($price_per_kg);
-//             update_post_meta($post_id, '_total_price', $total_price);
-//         }
-//     }
-// }
-// add_action('save_post', 'calculate_shipping_total_price');
-
 
 function add_shipping_request_meta_boxes() {
     add_meta_box(
